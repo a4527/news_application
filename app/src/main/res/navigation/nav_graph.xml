@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/fragment1"
+    android:id="@+id/nav_graph">
+    <fragment
+        android:id="@+id/fragment0"
+        android:name="kr.h.gachon.news_application.ui.Fragment0"
+        android:label="Fragment 0"
+        tools:layout="@layout/fragment_0">
+        <action
+            android:id="@+id/action_fragment0_to_fragment1"
+            app:destination="@id/fragment1" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment1"
+        android:name="kr.h.gachon.news_application.ui.Fragment1"
+        android:label="Fragment 1"
+        tools:layout="@layout/fragment_1">
+        <action
+            android:id="@+id/action_fragment1_to_fragment0"
+            app:destination="@id/fragment0" />
+        <action
+            android:id="@+id/action_fragment1_to_fragment2"
+            app:destination="@id/fragment2" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment2"
+        android:name="kr.h.gachon.news_application.ui.Fragment2"
+        android:label="Fragment 2"
+        tools:layout="@layout/fragment_2">
+        <action
+            android:id="@+id/action_fragment2_to_fragment1"
+            app:destination="@id/fragment1" />
+    </fragment>
+
+</navigation>
