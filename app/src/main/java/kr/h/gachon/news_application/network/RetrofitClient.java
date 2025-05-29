@@ -1,7 +1,12 @@
 package kr.h.gachon.news_application.network;
 
+import android.content.Context;
+
+import kr.h.gachon.news_application.util.TokenManager;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 //retrofit2 json 파일 형식을 받아오기 위해서 network 연결을 retrofit2 library를 사용함
 public class RetrofitClient {
@@ -9,6 +14,17 @@ public class RetrofitClient {
 
     private static Retrofit retrofit;
 
+    private static Retrofit getRetrofit(Context context){
+        if(retrofit == null){
+            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+            AuthInterceptor authInterceptor = new AuthInterceptor(TokenManager.getInstance(context));
+
+            OkHttpClient client = new OkHttpClient.Builder().addInterceptor(authInterceptor).addInterceptor(logging).build();
+        }
+        return retrofit;
+    }
     public static RetrofitRepository getApiService() {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
@@ -17,5 +33,9 @@ public class RetrofitClient {
                     .build();
         }
         return retrofit.create(RetrofitRepository.class);
+    }
+
+    public static RetrofitRepository getApiService(Context context){
+        return getRetrofit(context).create(RetrofitRepository.class);
     }
 }
