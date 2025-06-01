@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
@@ -17,8 +18,10 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Calendar;
@@ -29,6 +32,7 @@ import kr.h.gachon.news_application.databinding.ActivityMainBinding;
 import kr.h.gachon.news_application.databinding.Fragment0Binding;
 import kr.h.gachon.news_application.network.model.News;
 import kr.h.gachon.news_application.viewmodel.NewsViewModel;
+import kr.h.gachon.news_application.viewmodel.SharedViewModel;
 
 
 public class Fragment0 extends Fragment {
@@ -36,11 +40,12 @@ public class Fragment0 extends Fragment {
     private RecyclerView recyclerView;
     private MyAdapter0 adapter;
     private RecyclerView.LayoutManager layoutManager;
-
-    float touchPoint = 0;
-    private MyAdapter0 madapter;
+    private ImageView ivLoading;
+    private Animation loadingAnim;
     private NewsViewModel vm;
-    float distance = 0;
+    private SharedViewModel viewModel;
+    float touchPoint_x = 0;
+    float touchPoint_y = 0;
 
     public Fragment0() {
         // Required empty public constructor
@@ -61,14 +66,76 @@ public class Fragment0 extends Fragment {
         adapter=new MyAdapter0();
         recyclerView.setAdapter(adapter);
 
+        ivLoading=view.findViewById(R.id.ivLoading);
+
         vm = new ViewModelProvider(this).get(NewsViewModel.class);
         vm.getHeadlines().observe(getViewLifecycleOwner(), this::onNewsReceived);
         vm.loadHeadlines();
 
+        viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+
+        recyclerView.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                FragmentManager fragmentManager=getParentFragmentManager();
+                FragmentTransaction transaction1 = fragmentManager.beginTransaction();
+
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        touchPoint_x = motionEvent.getX();
+                        touchPoint_y = motionEvent.getY();
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+
+                        touchPoint_x = touchPoint_x - motionEvent.getX();
+                        touchPoint_y = touchPoint_y - motionEvent.getY();
+
+                        if (touchPoint_y < 50 && touchPoint_y > -50) {
+                            if (touchPoint_x > 200) {
+                                // 손가락을 우->좌로 움직였을때 오른쪽 화면 생성
+
+                                Fragment1 fragment1 = new Fragment1();
+                                transaction1.replace(R.id.fragment_container_view, fragment1).commitAllowingStateLoss();
+                                String num="1";
+                                viewModel.setLiveData(num);
+                                //showLoading();
+                                //vm.loadHeadlines();
+                                //vm.getHeadlines().observe(this, this::onNewsReceived);
+                                break;
+                            }
+
+                            if (touchPoint_x < -200) {
+                                // 손가락을 좌->우로 움직였을때 왼쪽 화면 생성
+                                return false;
+                            }
+                            break;
+
+                        } else return false;
+
+                    default:
+                        return false;
+                }
+                return true;
+            }
+        });
+
         return view;
     }
+
     private void onNewsReceived(List<News> newsList) {
         adapter.submitList(newsList);
+    }
+    private void showLoading() {
+        ivLoading.setVisibility(View.VISIBLE);
+        //ivLoading.startAnimation(loadingAnim);
+    }
+
+    private void hideLoading() {
+        //ivLoading.clearAnimation();
+        ivLoading.setVisibility(View.GONE);
     }
 
 

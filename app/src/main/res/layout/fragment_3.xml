@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FF8C00"
-    tools:context=".ui.Fragment1">
+    android:background="#00FF00"
+    tools:context=".ui.Fragment3">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"

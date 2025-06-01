@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/all"
+        android:title="ALL" />
+    <item
+        android:id="@+id/keyword1"
+        android:title="keyword1" />
+    <item
+        android:id="@+id/keyword2"
+        android:title="keyword2" />
+    <item
+        android:id="@+id/keyword3"
+        android:title="keyword3" />
+    <item
+        android:id="@+id/keyword4"
+        android:title="keyword4" />
+</menu>
