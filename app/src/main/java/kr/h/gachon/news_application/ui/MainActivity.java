@@ -2,21 +2,18 @@ package kr.h.gachon.news_application.ui;
 
 
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.Spinner;
-import android.widget.TextView;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.List;
 import kr.h.gachon.news_application.R;
-import kr.h.gachon.news_application.databinding.ActivityMainBinding;
 import kr.h.gachon.news_application.network.model.News;
 import kr.h.gachon.news_application.viewmodel.NewsViewModel;
 import kr.h.gachon.news_application.viewmodel.SharedViewModel;
@@ -47,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         // frame_layout 세팅
         adapter = new ArticleAdapter();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
+        //transaction.replace(R.id.nav_host_fragment, fragment_main).commitAllowingStateLoss();
 
         // ViewModel 초기화
         vm = new ViewModelProvider(this).get(NewsViewModel.class);
