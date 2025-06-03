@@ -123,12 +123,12 @@ public class Fragment0 extends Fragment {
             }
         });
 
-        adapter.ToggleButtonClick(new ArticleAdapter.ButtonClickListener() {
+        /*adapter.ToggleButtonClick(new ArticleAdapter.ButtonClickListener() {
             @Override
             public void ToggleButtonClick(View v, int positon) {
 
             }
-        });
+        });*/
 
         return view;
     }
