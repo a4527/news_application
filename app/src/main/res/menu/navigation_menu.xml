@@ -7,6 +7,9 @@
         android:id="@+id/search"
         android:title="Search" />
     <item
+        android:id="@+id/trend"
+        android:title="Trend" />
+    <item
         android:id="@+id/profile"
         android:title="Profile" />
 </menu>
