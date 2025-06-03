@@ -13,6 +13,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -38,7 +39,7 @@ import kr.h.gachon.news_application.viewmodel.SharedViewModel;
 public class Fragment0 extends Fragment {
 
     private RecyclerView recyclerView;
-    private MyAdapter0 adapter;
+    private ArticleAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private ImageView ivLoading;
     private Animation loadingAnim;
@@ -63,10 +64,10 @@ public class Fragment0 extends Fragment {
         layoutManager=new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter=new MyAdapter0();
+        adapter=new ArticleAdapter();
         recyclerView.setAdapter(adapter);
 
-        ivLoading=view.findViewById(R.id.ivLoading);
+        //ivLoading=view.findViewById(R.id.ivLoading);
 
         vm = new ViewModelProvider(this).get(NewsViewModel.class);
         vm.getHeadlines().observe(getViewLifecycleOwner(), this::onNewsReceived);
@@ -119,6 +120,13 @@ public class Fragment0 extends Fragment {
                         return false;
                 }
                 return true;
+            }
+        });
+
+        adapter.ToggleButtonClick(new ArticleAdapter.ButtonClickListener() {
+            @Override
+            public void ToggleButtonClick(View v, int positon) {
+
             }
         });
 

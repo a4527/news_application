@@ -22,7 +22,7 @@ import kr.h.gachon.news_application.viewmodel.NewsViewModel;
 import kr.h.gachon.news_application.viewmodel.SharedViewModel;
 
 
-public class Fragment4 extends Fragment {
+public class Fragment5 extends Fragment {
 
     private RecyclerView recyclerView;
     private ArticleAdapter adapter;
@@ -32,14 +32,14 @@ public class Fragment4 extends Fragment {
     float touchPoint_x = 0;
     float touchPoint_y = 0;
 
-    public Fragment4() {
+    public Fragment5() {
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = (ViewGroup) inflater.inflate(R.layout.fragment_4, container, false);
+        View view = (ViewGroup) inflater.inflate(R.layout.fragment_5, container, false);
 
 
         recyclerView=(RecyclerView) view.findViewById(R.id.recyclerview);
@@ -85,7 +85,7 @@ public class Fragment4 extends Fragment {
                             if (touchPoint_x > 200) {
                                 // 손가락을 우->좌로 움직였을때 오른쪽 화면 생성
 
-                                return false;
+                               return false;
                             }
                             if (touchPoint_x < -200) {
                                 // 손가락을 좌->우로 움직였을때 왼쪽 화면 생성

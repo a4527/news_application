@@ -11,6 +11,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.NavigationUI;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.tabs.TabLayout;
 
 import kr.h.gachon.news_application.R;
 import kr.h.gachon.news_application.databinding.FragmentMainBinding;
@@ -28,17 +32,16 @@ import kr.h.gachon.news_application.viewmodel.SharedViewModel;
 
 public class Fragment_main extends Fragment {
 
-    private FragmentManager childFragment;
-    private Fragment0 fragment0 = new Fragment0();
-    private Fragment1 fragment1 = new Fragment1();
-    private Fragment2 fragment2 = new Fragment2();
-    private Fragment3 fragment3 = new Fragment3();
-    private Fragment4 fragment4 = new Fragment4();
+    private Fragment0 fragment0;
+    private Fragment1 fragment1;
+    private Fragment2 fragment2;
+    private Fragment3 fragment3;
+    private Fragment4 fragment4;
+    private Fragment5 fragment5;
+    private Fragment6 fragment6;
+    private Fragment7 fragment7;
     BottomNavigationView bottomNavigationView;
     private SharedViewModel viewModel;
-    float touchPoint_x = 0;
-    float touchPoint_y = 0;
-    int count = 0;
 
     public Fragment_main() {
         // Required empty public constructor
@@ -48,12 +51,6 @@ public class Fragment_main extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = (ViewGroup) inflater.inflate(R.layout.fragment_main, container, false);
-        //mainBinding= FragmentMainBinding.inflate(inflater);
-
-        //FragmentTransaction transaction = fragmentManager.beginTransaction();
-        //transaction.replace(R.id.fragment_container_view, fragment0).commitAllowingStateLoss();
-
-        //FragmentContainerView fragmentContainerView=(FragmentContainerView) view.findViewById(R.id.fragment_container_view);
 
         viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         viewModel.getLiveData().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -74,17 +71,69 @@ public class Fragment_main extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        childFragment = getChildFragmentManager();
+        fragment0 = new Fragment0();
+        fragment1 = new Fragment1();
+        fragment2 = new Fragment2();
+        fragment3 = new Fragment3();
+        fragment4 = new Fragment4();
+        fragment5 = new Fragment5();
+        fragment6 = new Fragment6();
+        fragment7 = new Fragment7();
+
+        FragmentManager childFragment = getChildFragmentManager();
         FragmentTransaction transaction = childFragment.beginTransaction();
         transaction.replace(R.id.fragment_container_view, fragment0).commitAllowingStateLoss();
 
-        bottomNavigationView = view.findViewById(R.id.menu_top_navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new ItemSelectedListener());
+        TabLayout tabs = (TabLayout) view.findViewById(R.id.tabs);
+        tabs.addTab(tabs.newTab().setText("all"));
+        tabs.addTab(tabs.newTab().setText("key1"));
+        tabs.addTab(tabs.newTab().setText("key2"));
+        tabs.addTab(tabs.newTab().setText("key3"));
+        tabs.addTab(tabs.newTab().setText("key4"));
+        tabs.addTab(tabs.newTab().setText("key5"));
+        tabs.addTab(tabs.newTab().setText("key6"));
+        tabs.addTab(tabs.newTab().setText("key7"));
 
-        //FragmentContainerView fragmentContainerView=(FragmentContainerView) view.findViewById(R.id.fragment_container_view);
-        //fragmentContainerView.setOnTouchListener(this);
-        Log.d("tag","111");
+        tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                FragmentManager childFragment = getChildFragmentManager();
+                FragmentTransaction transaction = childFragment.beginTransaction();
 
+                int position = tab.getPosition();
+
+                Fragment selected = null;
+                if(position == 0){
+                    selected = fragment0;
+                } else if (position == 1){
+                    selected = fragment1;
+                } else if (position == 2){
+                    selected = fragment2;
+                } else if (position == 3){
+                    selected = fragment3;
+                } else if (position == 4){
+                    selected = fragment4;
+                } else if (position == 5){
+                    selected = fragment5;
+                } else if (position == 6){
+                    selected = fragment6;
+                } else if (position == 7){
+                    selected = fragment7;
+                }
+
+                transaction.replace(R.id.fragment_container_view, selected).commitAllowingStateLoss();
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     private void showLoading() {
@@ -120,5 +169,4 @@ public class Fragment_main extends Fragment {
             return true;
         }
     }
-
 }

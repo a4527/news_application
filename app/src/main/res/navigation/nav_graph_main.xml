@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/main"
+    android:id="@+id/nav_graph_main">
+    <fragment
+        android:id="@+id/main"
+        android:name="kr.h.gachon.news_application.ui.Fragment_main"
+        android:label="Main Page"
+        tools:layout="@layout/fragment_main">
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/search"
+        android:name="kr.h.gachon.news_application.ui.Fragment_search"
+        android:label="Search"
+        tools:layout="@layout/fragment_search">
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/trend"
+        android:name="kr.h.gachon.news_application.ui.Fragment_trend"
+        android:label="Trend"
+        tools:layout="@layout/fragment_trend">
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/profile"
+        android:name="kr.h.gachon.news_application.ui.Fragment_profile"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile">
+
+
+    </fragment>
+
+
+
+</navigation>

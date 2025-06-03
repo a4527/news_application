@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/fragment_main"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.Fragment_main">
 
@@ -11,9 +12,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/linear1"
         app:layout_constraintTop_toTopOf="parent">
-        <!-- 새로고침 버튼 -->
 
-        <!-- 요약 텍스트 -->
         <Button
             android:id="@+id/btnRefresh"
             android:layout_width="wrap_content"
@@ -43,6 +42,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="8dp" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -58,26 +58,26 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/menu_top_navigation"
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                app:labelVisibilityMode="labeled"
-                app:itemIconTint="@color/bottom_navigation_color"
-                app:itemTextColor="@color/bottom_navigation_color"
-                app:layout_constraintTop_toBottomOf="parent"
-                app:menu="@menu/keyword_menu" />
-
+                android:layout_height="wrap_content"
+                app:tabPaddingBottom="10dp"
+                app:tabGravity="fill"
+                app:tabTextAppearance="@style/tabTextSizeBold"
+                app:tabSelectedTextColor="@color/navigation_color"
+                app:tabMode="fixed"/>
 
         </LinearLayout>
 
     </LinearLayout>
 
-    <!-- 기사 목록 RecyclerView -->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container_view"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph_keyword"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="90dp"/>
-
 </FrameLayout>

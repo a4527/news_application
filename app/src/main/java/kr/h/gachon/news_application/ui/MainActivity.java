@@ -22,21 +22,17 @@ import kr.h.gachon.news_application.viewmodel.NewsViewModel;
 import kr.h.gachon.news_application.viewmodel.SharedViewModel;
 
 public class MainActivity extends AppCompatActivity {
-    private ActivityMainBinding binding;
     private NewsViewModel vm;
     private ArticleAdapter adapter;
     private SharedViewModel viewModel;
     private Animation loadingAnim;
-    private TextView textBar;
-    private Button btn1, btn2, btn3, btn4, btn5, btn_textBar;
-    private Spinner spinner;
     private FragmentManager fragmentManager = getSupportFragmentManager();
-    private Fragment0 fragment0 = new Fragment0();
-    private Fragment1 fragment1 = new Fragment1();
-    private Fragment2 fragment2 = new Fragment2();
     private Fragment_main fragment_main = new Fragment_main();
     private Fragment_search fragment_search = new Fragment_search();
+    private Fragment_trend fragment_trend = new Fragment_trend();
     private Fragment_profile fragment_profile = new Fragment_profile();
+    private NavController navController;
+    BottomNavigationView bottomNavigationView;
     float touchPoint_x = 0;
     float touchPoint_y = 0;
     int count = 0;
@@ -44,26 +40,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(R.layout.activity_main);
 
         loadingAnim = AnimationUtils.loadAnimation(this, R.anim.rotate);
-
-        textBar = findViewById(R.id.textBar);
-        btn1 = findViewById(R.id.button1);
-        btn2 = findViewById(R.id.button2);
-        btn3 = findViewById(R.id.button3);
-        btn4 = findViewById(R.id.button4);
-        btn5 = findViewById(R.id.button5);
-        btn_textBar = findViewById(R.id.btn_textBar);
-        spinner = findViewById(R.id.spinner);
-
 
         // frame_layout 세팅
         adapter = new ArticleAdapter();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.frame_layout, fragment_main).commitAllowingStateLoss();
-
 
         // ViewModel 초기화
         vm = new ViewModelProvider(this).get(NewsViewModel.class);
@@ -71,16 +54,24 @@ public class MainActivity extends AppCompatActivity {
         vm.loadHeadlines();
 
         //bottom_navigation
-        BottomNavigationView bottomNavigationView = findViewById(R.id.menu_bottom_navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new ItemSelectedListener());
+        bottomNavigationView = findViewById(R.id.menu_bottom_navigation);
 
         viewModel = new ViewModelProvider(this).get(SharedViewModel.class);
+
+        setupJetpackNavigation();
     }
     public SharedViewModel getViewModel() {
         return viewModel;
     }
 
-    class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener {
+    private void setupJetpackNavigation() {
+        NavHostFragment host = (NavHostFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.nav_host_fragment);
+        navController = host.getNavController();
+        NavigationUI.setupWithNavController(bottomNavigationView,navController);
+    }
+
+    /*class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -96,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
             return true;
         }
-    }
+    }*/
 
 
     private void onNewsReceived(List<News> newsList) {

@@ -24,7 +24,7 @@ import kr.h.gachon.news_application.viewmodel.SharedViewModel;
 public class Fragment3 extends Fragment {
 
     private RecyclerView recyclerView;
-    private MyAdapter2 adapter;
+    private ArticleAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private NewsViewModel vm;
     private SharedViewModel viewModel;
@@ -47,7 +47,7 @@ public class Fragment3 extends Fragment {
         layoutManager=new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter=new MyAdapter2();
+        adapter=new ArticleAdapter();
         recyclerView.setAdapter(adapter);
 
         vm = new ViewModelProvider(this).get(NewsViewModel.class);

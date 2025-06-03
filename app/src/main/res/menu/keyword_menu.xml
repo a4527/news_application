@@ -5,14 +5,23 @@
         android:title="ALL" />
     <item
         android:id="@+id/keyword1"
-        android:title="keyword1" />
+        android:title="key1" />
     <item
         android:id="@+id/keyword2"
-        android:title="keyword2" />
+        android:title="key2" />
     <item
         android:id="@+id/keyword3"
-        android:title="keyword3" />
+        android:title="key3" />
     <item
         android:id="@+id/keyword4"
-        android:title="keyword4" />
+        android:title="key4" />
+    <item
+        android:id="@+id/keyword5"
+        android:title="key5" />
+    <item
+        android:id="@+id/keyword6"
+        android:title="key6" />
+    <item
+        android:id="@+id/keyword7"
+        android:title="key7" />
 </menu>
