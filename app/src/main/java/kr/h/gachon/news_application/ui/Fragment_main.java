@@ -1,37 +1,39 @@
 package kr.h.gachon.news_application.ui;
 
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
+import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
-import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+
+import java.util.Arrays;
+import java.util.List;
 
 import kr.h.gachon.news_application.R;
-import kr.h.gachon.news_application.databinding.FragmentMainBinding;
+import kr.h.gachon.news_application.network.model.News;
 import kr.h.gachon.news_application.viewmodel.SharedViewModel;
 
 public class Fragment_main extends Fragment {
-
+    private TabLayout tabs;
     private Fragment0 fragment0;
     private Fragment1 fragment1;
     private Fragment2 fragment2;
@@ -40,8 +42,19 @@ public class Fragment_main extends Fragment {
     private Fragment5 fragment5;
     private Fragment6 fragment6;
     private Fragment7 fragment7;
+    private TabLayout.Tab tab1;
+    private TabLayout.Tab tab2;
+    private TabLayout.Tab tab3;
+    private TabLayout.Tab tab4;
+    private TabLayout.Tab tab5;
+    private TabLayout.Tab tab6;
+    private TabLayout.Tab tab7;
+    private TabLayout.Tab tab8;
+    private NavController navController;
     BottomNavigationView bottomNavigationView;
     private SharedViewModel viewModel;
+    private ViewPager2 viewPager;
+    private PagerAdapter pagerAdapter;
 
     public Fragment_main() {
         // Required empty public constructor
@@ -53,17 +66,7 @@ public class Fragment_main extends Fragment {
         View view = (ViewGroup) inflater.inflate(R.layout.fragment_main, container, false);
 
         viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
-        viewModel.getLiveData().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                int number=Integer.valueOf(s).intValue();
-                Menu menu = bottomNavigationView.getMenu();
-                for (int i = 0; i < menu.size(); i++) {
-                    menu.getItem(i).setChecked(false);
-                }
-                menu.getItem(number).setChecked(true);
-            }
-        });
+
 
         return view;
     }
@@ -80,61 +83,41 @@ public class Fragment_main extends Fragment {
         fragment6 = new Fragment6();
         fragment7 = new Fragment7();
 
-        FragmentManager childFragment = getChildFragmentManager();
-        FragmentTransaction transaction = childFragment.beginTransaction();
-        transaction.replace(R.id.fragment_container_view, fragment0).commitAllowingStateLoss();
 
-        TabLayout tabs = (TabLayout) view.findViewById(R.id.tabs);
-        tabs.addTab(tabs.newTab().setText("all"));
-        tabs.addTab(tabs.newTab().setText("key1"));
-        tabs.addTab(tabs.newTab().setText("key2"));
-        tabs.addTab(tabs.newTab().setText("key3"));
-        tabs.addTab(tabs.newTab().setText("key4"));
-        tabs.addTab(tabs.newTab().setText("key5"));
-        tabs.addTab(tabs.newTab().setText("key6"));
-        tabs.addTab(tabs.newTab().setText("key7"));
 
-        tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        tabs = (TabLayout) view.findViewById(R.id.tabs);
+
+
+
+
+
+        viewPager = view.findViewById(R.id.view_pager);
+
+        setViewPager();
+        setTabLayout();
+
+        tabs.setTabGravity(TabLayout.GRAVITY_START);
+
+
+
+        tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener(){
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                FragmentManager childFragment = getChildFragmentManager();
-                FragmentTransaction transaction = childFragment.beginTransaction();
-
-                int position = tab.getPosition();
-
-                Fragment selected = null;
-                if(position == 0){
-                    selected = fragment0;
-                } else if (position == 1){
-                    selected = fragment1;
-                } else if (position == 2){
-                    selected = fragment2;
-                } else if (position == 3){
-                    selected = fragment3;
-                } else if (position == 4){
-                    selected = fragment4;
-                } else if (position == 5){
-                    selected = fragment5;
-                } else if (position == 6){
-                    selected = fragment6;
-                } else if (position == 7){
-                    selected = fragment7;
-                }
-
-                transaction.replace(R.id.fragment_container_view, selected).commitAllowingStateLoss();
+            public void onTabSelected(TabLayout.Tab tab){
+                viewPager.setCurrentItem(tab.getPosition());
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
+            public void onTabUnselected(TabLayout.Tab tab){
             }
 
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
+            public void onTabReselected(TabLayout.Tab tab){
             }
+
         });
+
     }
+
 
     private void showLoading() {
         //binding.ivLoading.setVisibility(View.VISIBLE);
@@ -145,28 +128,35 @@ public class Fragment_main extends Fragment {
         //binding.ivLoading.clearAnimation();
         //binding.ivLoading.setVisibility(View.GONE);
     }
-    class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-            FragmentManager fragmentManager= getChildFragmentManager();
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
+    private void setViewPager(){
 
-            //Menu menu = bottomNavigationView.getMenu();
+        pagerAdapter = new PagerAdapter((AppCompatActivity) getActivity());
+        pagerAdapter.createFragment(0);
+        pagerAdapter.createFragment(1);
+        pagerAdapter.createFragment(2);
+        pagerAdapter.createFragment(3);
+        pagerAdapter.createFragment(4);
+        pagerAdapter.createFragment(5);
+        pagerAdapter.createFragment(6);
+        pagerAdapter.createFragment(7);
 
-            int itemId = menuItem.getItemId();
-            if (itemId == R.id.all) {
-                transaction.replace(R.id.fragment_container_view, fragment0).commitAllowingStateLoss();
-            } else if (itemId == R.id.keyword1) {
-                transaction.replace(R.id.fragment_container_view, fragment1).commitAllowingStateLoss();
-            } else if (itemId == R.id.keyword2) {
-                transaction.replace(R.id.fragment_container_view, fragment2).commitAllowingStateLoss();
-            } else if (itemId == R.id.keyword3) {
-                transaction.replace(R.id.fragment_container_view, fragment3).commitAllowingStateLoss();
-            } else if (itemId == R.id.keyword4) {
-                transaction.replace(R.id.fragment_container_view, fragment4).commitAllowingStateLoss();
-            }
-
-            return true;
-        }
+        viewPager.setAdapter(pagerAdapter);
     }
+
+    private void setTabLayout(){
+        final List<String> tabElement = Arrays.asList("Recent","방송/통신","컴퓨팅","홈&모바일","인터넷","반도체\n/디스플레이","카테크","헬스케어");
+        new TabLayoutMediator(tabs, viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
+            @Override
+            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                TextView textView = new TextView(getActivity());
+                textView.setText(tabElement.get(position));
+                textView.setGravity(Gravity.CENTER);
+                textView.setTextAppearance(R.style.tabTextSizeBold);
+                tab.setCustomView(textView);
+
+            }
+        }).attach();
+
+    }
+
 }
