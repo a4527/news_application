@@ -2,10 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/linearlayout"
     android:orientation="vertical"
-    android:padding="12dp"
-    android:layout_marginBottom="50dp">
+    android:padding="12dp">
 
     <!-- 기사 제목 -->
     <TextView
@@ -15,27 +13,13 @@
         android:text="Title"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:lineSpacingExtra="2dp"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right">
-        <ToggleButton
-            android:id="@+id/toggle_scrap"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textOn="Scrap"
-            android:textOff="No scrap"/>
-    </LinearLayout>
+        android:lineSpacingExtra="2dp"
+        android:ellipsize="end" />
 
     <ImageView
-        android:id="@+id/tvImage"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:lineSpacingExtra="2dp"
-        android:layout_marginTop="4dp"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop"/>
+        android:layout_height="120dp"
+        android:src="@drawable/ic_launcher_foreground"/>
 
     <!-- 기사 설명(Description) -->
     <TextView
@@ -46,48 +30,21 @@
         android:textSize="14sp"
         android:lineSpacingExtra="2dp"
         android:layout_marginTop="4dp"
-        android:layout_marginBottom="30dp"/>
-    <TextView
-        android:id="@+id/textview_category"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginBottom="20dp"
-        android:textSize="16sp"
-        android:background="@color/white"
-        android:text="category"
-        android:visibility="visible"/>
-    <TextView
-        android:id="@+id/textview_keyword"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:textSize="16sp"
-        android:background="@color/white"
-        android:text="category"
-        android:visibility="visible"/>
+        android:layout_marginBottom="40dp"
+        android:ellipsize="end" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="right|center_vertical">
-
+        android:orientation="horizontal">
         <TextView
             android:id="@+id/textview_url"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:textSize="16sp"
-            android:background="@color/white"
-            android:layout_weight="5"
-            android:text="URL"
-            android:visibility="invisible"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         <ToggleButton
-            android:id="@+id/toggle_url"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_weight="1"
-            android:textSize="18sp"
-            android:textOn="Url\nOn"
-            android:textOff="Url\nOff"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onToggleClicked"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -10,7 +10,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 
 //retrofit2 json 파일 형식을 받아오기 위해서 network 연결을 retrofit2 library를 사용함
 public class RetrofitClient {
-    private static final String BASE_URL = "http://10.0.2.2:11000/";
+    private static final String BASE_URL = "http://newsnap.onrender.com/";
 
     private static Retrofit retrofit;
 
@@ -22,6 +22,11 @@ public class RetrofitClient {
             AuthInterceptor authInterceptor = new AuthInterceptor(TokenManager.getInstance(context));
 
             OkHttpClient client = new OkHttpClient.Builder().addInterceptor(authInterceptor).addInterceptor(logging).build();
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .client(client) // ← 생성한 client 사용
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
         }
         return retrofit;
     }

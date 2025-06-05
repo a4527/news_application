@@ -7,20 +7,77 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.Fragment_main">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabs"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        app:tabGravity="start"
-        app:tabMaxWidth="0dp"
-        app:tabIndicatorHeight="3dp"
-        app:tabTextAppearance="@style/tabTextSizeBold"
-        app:tabSelectedTextColor="@color/navigation_color"
-        app:tabMode="scrollable"/>
+        android:layout_height="wrap_content"
+        android:id="@+id/linear1"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/view_pager"
+        <Button
+            android:id="@+id/btnRefresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="220dp"
+            android:text="새로고침" />
+
+        <Button
+            android:id="@+id/btn_textBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="8dp"
+            android:text="요약"/>
+
+        <TextView
+            android:id="@+id/textBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="요약이 여기에 표시됩니다."
+            android:textSize="16sp"
+            android:padding="12dp"
+            android:background="#EEE"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/btnRefresh"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="60dp"
+        android:id="@+id/linear2">
+
+        <LinearLayout
+            android:id="@+id/category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabPaddingBottom="10dp"
+                app:tabGravity="fill"
+                app:tabTextAppearance="@style/tabTextSizeBold"
+                app:tabSelectedTextColor="@color/navigation_color"
+                app:tabMode="fixed"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_container_view"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph_keyword"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="41dp"/>
+        android:layout_marginTop="90dp"/>
 </FrameLayout>
