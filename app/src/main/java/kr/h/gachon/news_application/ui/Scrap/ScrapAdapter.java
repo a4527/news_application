@@ -65,7 +65,7 @@ public class ScrapAdapter extends RecyclerView.Adapter<ScrapAdapter.ScrapViewHol
 
             Bundle bundle = new Bundle();
             bundle.putInt("index", position);
-            Navigation.findNavController(v).navigate(R.id.scrapDetailFragment, bundle);
+            //Navigation.findNavController(v).navigate(R.id.scrapDetailFragment, bundle);
         });
     }
 

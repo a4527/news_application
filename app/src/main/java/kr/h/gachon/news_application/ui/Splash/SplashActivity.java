@@ -7,6 +7,7 @@ import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 
 import kr.h.gachon.news_application.R;
+import kr.h.gachon.news_application.ui.LoginActivity;
 import kr.h.gachon.news_application.ui.MainActivity;
 
 public class SplashActivity extends AppCompatActivity {

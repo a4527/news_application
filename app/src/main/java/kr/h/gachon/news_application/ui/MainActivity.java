@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     private NavController navController;
     BottomNavigationView bottomNavigationView;
     View reload_icon;
-    private Fragment_scrap fragment_scrap=new Fragment_scrap();
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -92,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
         //bottom_navigation
         bottomNavigationView = findViewById(R.id.menu_bottom_navigation);
 
-        viewModel = new ViewModelProvider(this).get(SharedViewModel.class);
 
         setupJetpackNavigation();
 
@@ -100,9 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    public SharedViewModel getViewModel() {
-        return viewModel;
-    }
+
 
     private void setupJetpackNavigation() {
         NavHostFragment host = (NavHostFragment) getSupportFragmentManager()
