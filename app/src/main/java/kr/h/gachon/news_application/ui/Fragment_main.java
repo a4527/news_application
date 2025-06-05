@@ -72,7 +72,6 @@ public class Fragment_main extends Fragment {
         fragment7 = new Fragment7();
 
 
-
         tabs = (TabLayout) view.findViewById(R.id.tabs);
 
 
@@ -83,6 +82,8 @@ public class Fragment_main extends Fragment {
 
         setViewPager();
         setTabLayout();
+
+        ((ViewGroup) tabs.getChildAt(0)).getChildAt(8).setVisibility(View.GONE);
 
         tabs.setTabGravity(TabLayout.GRAVITY_START);
 
@@ -127,12 +128,13 @@ public class Fragment_main extends Fragment {
         pagerAdapter.createFragment(5);
         pagerAdapter.createFragment(6);
         pagerAdapter.createFragment(7);
+        pagerAdapter.createFragment(8);
 
         viewPager.setAdapter(pagerAdapter);
     }
 
     private void setTabLayout(){
-        final List<String> tabElement = Arrays.asList("Recent","방송/통신","컴퓨팅","홈&모바일","인터넷","반도체\n/디스플레이","카테크","헬스케어");
+        final List<String> tabElement = Arrays.asList("Recent","방송/통신","컴퓨팅","홈&모바일","인터넷","반도체\n/디스플레이","게임","과학","");
         new TabLayoutMediator(tabs, viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {

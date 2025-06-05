@@ -17,6 +17,7 @@ public class PagerAdapter extends FragmentStateAdapter {
     private Fragment5 fragment5;
     private Fragment6 fragment6;
     private Fragment7 fragment7;
+    private Fragment8 fragment8;
     public PagerAdapter(AppCompatActivity activity) {
         super(activity);
     }
@@ -49,6 +50,9 @@ public class PagerAdapter extends FragmentStateAdapter {
         } else if (position == 7) {
             fragment7 = new Fragment7();
             addFragment(fragment7);
+        } else if (position == 8) {
+            fragment8 = new Fragment8();
+            addFragment(fragment8);
         } else {
             return null;
         }
