@@ -34,119 +34,43 @@ import kr.h.gachon.news_application.viewmodel.SharedViewModel;
 
 public class Fragment_main extends Fragment {
     private TabLayout tabs;
-    private Fragment0 fragment0;
-    private Fragment1 fragment1;
-    private Fragment2 fragment2;
-    private Fragment3 fragment3;
-    private Fragment4 fragment4;
-    private Fragment5 fragment5;
-    private Fragment6 fragment6;
-    private Fragment7 fragment7;
     private ViewPager2 viewPager;
     private PagerAdapter pagerAdapter;
 
-    public Fragment_main() {
-        // Required empty public constructor
-    }
+    // 카테고리명 배열
+    private final String[] categories = {
+            "방송/통신", "컴퓨팅", "홈&모바일", "인터넷", "반도체/디스플레이", "게임", "과학"
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = (ViewGroup) inflater.inflate(R.layout.fragment_main, container, false);
-
-
-
+        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        tabs = view.findViewById(R.id.tabs);
+        viewPager = view.findViewById(R.id.view_pager);
         return view;
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        fragment0 = new Fragment0();
-        fragment1 = new Fragment1();
-        fragment2 = new Fragment2();
-        fragment3 = new Fragment3();
-        fragment4 = new Fragment4();
-        fragment5 = new Fragment5();
-        fragment6 = new Fragment6();
-        fragment7 = new Fragment7();
-
-
-        tabs = (TabLayout) view.findViewById(R.id.tabs);
-
-
-
-
-
-        viewPager = view.findViewById(R.id.view_pager);
-
         setViewPager();
         setTabLayout();
-
-        ((ViewGroup) tabs.getChildAt(0)).getChildAt(8).setVisibility(View.GONE);
-
-        tabs.setTabGravity(TabLayout.GRAVITY_START);
-
-
-
-        tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener(){
-            @Override
-            public void onTabSelected(TabLayout.Tab tab){
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab){
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab){
-            }
-
-        });
-
     }
 
-
-    private void showLoading() {
-        //binding.ivLoading.setVisibility(View.VISIBLE);
-        //binding.ivLoading.startAnimation(loadingAnim);
-    }
-
-    private void hideLoading() {
-        //binding.ivLoading.clearAnimation();
-        //binding.ivLoading.setVisibility(View.GONE);
-    }
-    private void setViewPager(){
-
-        pagerAdapter = new PagerAdapter((AppCompatActivity) getActivity());
-        pagerAdapter.createFragment(0);
-        pagerAdapter.createFragment(1);
-        pagerAdapter.createFragment(2);
-        pagerAdapter.createFragment(3);
-        pagerAdapter.createFragment(4);
-        pagerAdapter.createFragment(5);
-        pagerAdapter.createFragment(6);
-        pagerAdapter.createFragment(7);
-        pagerAdapter.createFragment(8);
-
+    private void setViewPager() {
+        pagerAdapter = new PagerAdapter((AppCompatActivity) getActivity(), categories);
         viewPager.setAdapter(pagerAdapter);
     }
 
-    private void setTabLayout(){
-        final List<String> tabElement = Arrays.asList("Recent","방송/통신","컴퓨팅","홈&모바일","인터넷","반도체\n/디스플레이","게임","과학","");
-        new TabLayoutMediator(tabs, viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
-            @Override
-            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                TextView textView = new TextView(getActivity());
-                textView.setText(tabElement.get(position));
-                textView.setGravity(Gravity.CENTER);
-                textView.setTextAppearance(R.style.tabTextSizeBold);
-                tab.setCustomView(textView);
-
-            }
+    private void setTabLayout() {
+        new TabLayoutMediator(tabs, viewPager, (tab, position) -> {
+            TextView textView = new TextView(getActivity());
+            textView.setText(categories[position]);
+            textView.setGravity(Gravity.CENTER);
+            textView.setTextAppearance(getContext(),R.style.tabTextSizeBold);
+            tab.setCustomView(textView);
         }).attach();
-
     }
-
 }

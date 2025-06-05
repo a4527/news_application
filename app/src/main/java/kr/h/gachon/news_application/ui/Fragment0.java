@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.h.gachon.news_application.R;
 import kr.h.gachon.news_application.network.model.News;
@@ -52,8 +53,8 @@ public class Fragment0 extends Fragment {
         //ivLoading=view.findViewById(R.id.ivLoading);
 
         vm = new ViewModelProvider(this).get(NewsViewModel.class);
-        vm.getHeadlines().observe(getViewLifecycleOwner(), this::onNewsReceived);
-        vm.loadHeadlines();
+        vm.getCategoryHeadlines().observe(getViewLifecycleOwner(), this::onCategoryNewsReceived);
+        vm.loadCategoryHeadlines();
         //vm.getHeadlines();
         //Log.d("tag","000");
         //adapter.category(i);
@@ -68,8 +69,17 @@ public class Fragment0 extends Fragment {
         return view;
     }
 
-    private void onNewsReceived(List<News> newsList) {
-        adapter.submitList(newsList);
+    private void onCategoryNewsReceived(Map<String, List<News>> newsMap) {
+        for (String key : newsMap.keySet()) {
+            System.out.println("카테고리 키: " + key + " / 뉴스 개수: " + newsMap.get(key).size());
+        }
+        if (newsMap != null && newsMap.containsKey("방송/통신")) {
+            List<News> list = newsMap.get("방송/통신");
+            for (News news : list) {
+                System.out.println("뉴스 제목: " + news.getTitle() + " / 카테고리: " + news.getCategory());
+            }
+            adapter.submitList(list);
+        }
     }
     private void showLoading() {
         //ivLoading.setVisibility(View.VISIBLE);
