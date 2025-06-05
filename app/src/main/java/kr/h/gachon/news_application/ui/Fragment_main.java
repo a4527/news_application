@@ -42,17 +42,6 @@ public class Fragment_main extends Fragment {
     private Fragment5 fragment5;
     private Fragment6 fragment6;
     private Fragment7 fragment7;
-    private TabLayout.Tab tab1;
-    private TabLayout.Tab tab2;
-    private TabLayout.Tab tab3;
-    private TabLayout.Tab tab4;
-    private TabLayout.Tab tab5;
-    private TabLayout.Tab tab6;
-    private TabLayout.Tab tab7;
-    private TabLayout.Tab tab8;
-    private NavController navController;
-    BottomNavigationView bottomNavigationView;
-    private SharedViewModel viewModel;
     private ViewPager2 viewPager;
     private PagerAdapter pagerAdapter;
 
@@ -65,7 +54,6 @@ public class Fragment_main extends Fragment {
                              Bundle savedInstanceState) {
         View view = (ViewGroup) inflater.inflate(R.layout.fragment_main, container, false);
 
-        viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
 
 
         return view;

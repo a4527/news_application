@@ -18,7 +18,7 @@ public class SplashActivity extends AppCompatActivity {
 
         // 2초 후 메인으로 전환
         new Handler().postDelayed(() -> {
-            startActivity(new Intent(this, LoginActivity.class));
+            startActivity(new Intent(this, MainActivity.class));
             finish();
         }, 2000);
     }

@@ -1,17 +1,22 @@
 package kr.h.gachon.news_application.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import kr.h.gachon.news_application.R;
 
@@ -32,12 +37,29 @@ public class Fragment_profile extends Fragment {
         imageView.setClipToOutline(true);
 
         FrameLayout frameLayout=view.findViewById(R.id.frame_profile);
-        ImageButton imageButton_scrap=view.findViewById(R.id.img_botton1);
+        ImageButton imageButton_setting=view.findViewById(R.id.img_botton_setting);
+        ImageButton log_out=view.findViewById(R.id.img_botton_logout);
+        TextView log_out_text=view.findViewById(R.id.textview_logout);
 
         FragmentManager childFragment = getChildFragmentManager();
         FragmentTransaction transaction = childFragment.beginTransaction();
 
+        imageButton_setting.setOnClickListener(v -> {
 
+        });
+
+        log_out.setOnClickListener(v -> {
+            Log.d("tag",log_out_text.getText().toString());
+            if (log_out_text.getText().toString().equals("Log Out")) {
+                log_out_text.setText("Log In");
+                Toast myToast = Toast.makeText(this.getActivity(),"Log Out", Toast.LENGTH_SHORT);
+                myToast.show();
+            } else {
+                log_out_text.setText("Log Out");
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //transaction.replace(R.id.fragment_container_view, fragment0).commitAllowingStateLoss();
 

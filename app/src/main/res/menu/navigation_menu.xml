@@ -2,18 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/main"
+        android:icon="@drawable/news"
         android:title="Main Page" />
     <item
         android:id="@+id/fragment_scrap"
         android:title="Scrap" />
     <item
         android:id="@+id/trend"
+        android:icon="@drawable/trend"
         android:title="Trend" />
     <item
         android:id="@+id/profile"
+        android:icon="@drawable/profile"
         android:title="Profile" />
     <item
         android:id="@+id/settings"
+        android:icon="@drawable/setting"
         android:title="설정" />
 
 </menu>

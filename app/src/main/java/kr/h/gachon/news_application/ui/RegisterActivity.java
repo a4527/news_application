@@ -33,6 +33,12 @@ public class RegisterActivity extends AppCompatActivity {
 
         vm = new ViewModelProvider(this).get(AuthViewModel.class);
 
+        binding.btnLogin.setOnClickListener(v -> {
+            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        });
+
         binding.btnRegister.setOnClickListener(view -> {
             String user = binding.enterId.getText().toString().trim();
             String email = binding.enterEmail.getText().toString().trim();

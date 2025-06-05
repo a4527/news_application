@@ -88,7 +88,7 @@
                 android:textStyle="bold"/>
 
             <ImageButton
-                android:id="@+id/img_botton4"
+                android:id="@+id/img_botton_setting"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@color/white"
@@ -101,6 +101,7 @@
             android:orientation="horizontal"
             android:layout_marginBottom="25dp">
             <TextView
+                android:id="@+id/textview_logout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Log Out"
@@ -110,7 +111,7 @@
                 android:textStyle="bold"/>
 
             <ImageButton
-                android:id="@+id/img_botton5"
+                android:id="@+id/img_botton_logout"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@color/white"
