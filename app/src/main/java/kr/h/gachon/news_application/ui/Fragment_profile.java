@@ -1,7 +1,9 @@
 package kr.h.gachon.news_application.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -12,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import kr.h.gachon.news_application.R;
 
@@ -33,11 +36,20 @@ public class Fragment_profile extends Fragment {
 
         FrameLayout frameLayout=view.findViewById(R.id.frame_profile);
         ImageButton imageButton_scrap=view.findViewById(R.id.img_botton1);
+        ImageButton log_out=view.findViewById(R.id.img_botton_logout);
+        TextView log_out_text=view.findViewById(R.id.textview_logout);
 
         FragmentManager childFragment = getChildFragmentManager();
         FragmentTransaction transaction = childFragment.beginTransaction();
 
-
+        log_out.setOnClickListener(v -> {
+            if (log_out_text.getText()=="Log Out") {
+                log_out_text.setText("Log In");
+            } else {
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //transaction.replace(R.id.fragment_container_view, fragment0).commitAllowingStateLoss();
 
