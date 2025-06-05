@@ -15,7 +15,7 @@
 
     <fragment
         android:id="@+id/fragment_scrap"
-        android:name="kr.h.gachon.news_application.ui.Fragment_scrap"
+        android:name="kr.h.gachon.news_application.ui.Scrap.ScrapFragment"
         android:label="Scrap"
         tools:layout="@layout/fragment_scrap">
 
@@ -30,6 +30,12 @@
 
 
     </fragment>
+
+    <fragment
+        android:id="@+id/scrapDetailFragment"
+        android:name="kr.h.gachon.news_application.ui.Scrap.ScrapDetailFragment"
+        android:label="스크랩 상세보기"
+        tools:layout="@layout/fragment_scrap_detail" />
 
     <fragment
         android:id="@+id/profile"

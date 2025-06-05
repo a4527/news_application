@@ -17,6 +17,7 @@ import kr.h.gachon.news_application.R;
 
 public class Fragment_profile extends Fragment {
 
+
     public Fragment_profile() {
         // Required empty public constructor
     }
@@ -36,12 +37,7 @@ public class Fragment_profile extends Fragment {
         FragmentManager childFragment = getChildFragmentManager();
         FragmentTransaction transaction = childFragment.beginTransaction();
 
-       /* imageButton_scrap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                transaction.replace(R.id.frame_profile, fragment_scrap).commitAllowingStateLoss();
-            }
-        });*/
+
 
         //transaction.replace(R.id.fragment_container_view, fragment0).commitAllowingStateLoss();
 
