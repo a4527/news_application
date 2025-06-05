@@ -15,6 +15,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.List;
 import kr.h.gachon.news_application.R;
 import kr.h.gachon.news_application.network.model.News;
+import kr.h.gachon.news_application.ui.Trend.TrendFragment;
 import kr.h.gachon.news_application.viewmodel.NewsViewModel;
 import kr.h.gachon.news_application.viewmodel.SharedViewModel;
 
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private Fragment_main fragment_main = new Fragment_main();
     private Fragment_search fragment_search = new Fragment_search();
-    private Fragment_trend fragment_trend = new Fragment_trend();
+    private TrendFragment fragment_trend = new TrendFragment();
     private Fragment_profile fragment_profile = new Fragment_profile();
     private NavController navController;
     BottomNavigationView bottomNavigationView;

@@ -1,20 +1,122 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/fragment_trend"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#458224"
     android:orientation="vertical"
-    tools:context=".ui.Fragment_search">
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-
+    <!-- ⏱ 날짜 선택 -->
     <LinearLayout
+        android:id="@+id/dateSelectorContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingTop="16dp"
+        android:paddingBottom="8dp">
+
+        <!-- 대여시간 -->
+        <LinearLayout
+            android:id="@+id/startDateBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:id="@+id/textStartLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="시작날짜"
+                android:textColor="#8000B0FF"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/textStartDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="03.21 (수) 13:30"
+                android:textColor="#FF000000"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="4dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="4dp"
+                android:background="#8000B0FF"/>
+        </LinearLayout>
+
+        <!-- 반납시간 -->
+        <LinearLayout
+            android:id="@+id/endDateBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:id="@+id/textEndLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="종료날짜"
+                android:textColor="#888888"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/textEndDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="03.22 (목) 13:30"
+                android:textColor="#888888"
+                android:textSize="16sp"
+                android:layout_marginTop="4dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="4dp"
+                android:background="#CCCCCC"/>
+        </LinearLayout>
 
     </LinearLayout>
 
-</FrameLayout>
+    <Button
+        android:id="@+id/btnSearch"
+        android:layout_width="380dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/search_button"
+        app:backgroundTint="@null"
+        android:paddingHorizontal="32dp"
+        android:paddingVertical="0dp"
+        android:text="검색"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroupKeywords"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:padding="8dp"
+        app:chipSpacing="8dp"
+        app:singleLine="false" />
+
+    <!-- 📰 뉴스 리스트 -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerTrend"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingTop="8dp"/>
+</LinearLayout>

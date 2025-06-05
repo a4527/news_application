@@ -1,0 +1,44 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/editKeyword"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="키워드 입력" />
+
+        <Button
+            android:id="@+id/btnAddKeyword"
+            android:layout_width="76dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/search_button"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:minHeight="30dp"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="0dp"
+            android:text="추가"
+            android:textSize="16sp"
+            app:backgroundTint="@null" />
+
+    </LinearLayout>
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroupKeywords"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:singleLine="false"
+        app:chipSpacing="8dp"
+        android:paddingTop="16dp"/>
+</LinearLayout>

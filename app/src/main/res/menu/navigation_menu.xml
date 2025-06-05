@@ -4,12 +4,16 @@
         android:id="@+id/main"
         android:title="Main Page" />
     <item
-        android:id="@+id/search"
-        android:title="Search" />
+        android:id="@+id/fragment_scrap"
+        android:title="Scrap" />
     <item
         android:id="@+id/trend"
         android:title="Trend" />
     <item
         android:id="@+id/profile"
         android:title="Profile" />
+    <item
+        android:id="@+id/settings"
+        android:title="설정" />
+
 </menu>
