@@ -1,10 +1,8 @@
-package kr.h.gachon.news_application.ui;
+package kr.h.gachon.news_application.ui.Setting;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.nio.BufferUnderflowException;
 
 public class SettingsActivity extends AppCompatActivity {
     @Override

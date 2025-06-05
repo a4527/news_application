@@ -46,12 +46,12 @@
 
     <fragment
         android:id="@+id/settings"
-        android:name="kr.h.gachon.news_application.ui.SettingsFragment"
+        android:name="kr.h.gachon.news_application.ui.Setting.SettingsFragment"
         android:label="설정" />
 
     <fragment
         android:id="@+id/fragment_keyword_manage"
-        android:name="kr.h.gachon.news_application.ui.KeywordManageFragment"
+        android:name="kr.h.gachon.news_application.ui.Keyword.KeywordManageFragment"
         android:label="KeywordManage"
         tools:layout="@layout/fragment_keyword_manage" />
 

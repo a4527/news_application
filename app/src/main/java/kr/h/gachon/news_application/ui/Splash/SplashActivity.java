@@ -1,15 +1,13 @@
-package kr.h.gachon.news_application.ui;
+package kr.h.gachon.news_application.ui.Splash;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import kr.h.gachon.news_application.R;
+import kr.h.gachon.news_application.ui.MainActivity;
 
 public class SplashActivity extends AppCompatActivity {
     @Override

@@ -20,7 +20,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ui.SplashActivity"
+            android:name=".ui.Splash.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
@@ -38,7 +38,7 @@
             android:name=".ui.MainActivity"
             android:exported="true">
         </activity>
-        <activity android:name=".ui.SettingsActivity"/>
+        <activity android:name=".ui.Setting.SettingsActivity"/>
     </application>
 
 </manifest>
