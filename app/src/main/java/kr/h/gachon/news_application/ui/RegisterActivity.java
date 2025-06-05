@@ -1,5 +1,6 @@
 package kr.h.gachon.news_application.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -30,6 +31,12 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
         vm = new ViewModelProvider(this).get(AuthViewModel.class);
+
+        binding.btnLogin.setOnClickListener(v -> {
+            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        });
 
         binding.btnRegister.setOnClickListener(view -> {
             String user = binding.enterId.getText().toString().trim();
