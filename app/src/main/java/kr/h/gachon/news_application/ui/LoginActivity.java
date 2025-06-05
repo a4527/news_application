@@ -54,9 +54,10 @@ public class LoginActivity extends AppCompatActivity {
 
         vm.getLoginSuccess().observe(this, resp ->{
             TokenManager.getInstance(this).saveToken(resp.getAccessToken());
-            Intent result = new Intent();
+            Intent result = new Intent(LoginActivity.this, MainActivity.class);
             result.putExtra("username", binding.enterId.getText().toString().trim());
             setResult(RESULT_OK, result);
+            startActivity(result);
             finish();
         });
 

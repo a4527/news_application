@@ -58,12 +58,6 @@ public class Fragment0 extends Fragment {
         //Log.d("tag","000");
         //adapter.category(i);
 
-
-
-
-
-
-
         /*adapter.ToggleButtonClick(new ArticleAdapter.ButtonClickListener() {
             @Override
             public void ToggleButtonClick(View v, int positon) {

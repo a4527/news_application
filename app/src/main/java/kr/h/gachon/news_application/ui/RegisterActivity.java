@@ -1,6 +1,8 @@
 package kr.h.gachon.news_application.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,22 +37,32 @@ public class RegisterActivity extends AppCompatActivity {
             String user = binding.enterId.getText().toString().trim();
             String email = binding.enterEmail.getText().toString().trim();
             String pass = binding.enterPassword.getText().toString().trim();
-            String pass_confirm = binding.enterPasswordConfirm.toString().trim();
+            String pass_confirm = binding.enterPasswordConfirm.getText().toString().trim();
 
-            if(pass != pass_confirm){
-                // 경고문구
+            if(!pass.equals(pass_confirm)){
+                Log.d("password", pass);
+                Log.d("password_confirm", pass_confirm);
+                Toast.makeText(this, "비밀번호 오류", Toast.LENGTH_SHORT).show();
                 return;
             }
             vm.register(user, pass, email);
         });
 
+        binding.btnLogin.setOnClickListener(v -> {
+            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        });
+
         vm.getRegisterSuccess().observe(this, msg -> {
             Toast.makeText(this, msg != null ? msg : "회원가입 성공", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+            startActivity(intent);
             finish();
         });
 
         vm.getRegisterError().observe(this, err -> {
-            Toast.makeText(this, err, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "회원가입 실패", Toast.LENGTH_SHORT).show();
         });
     }
 }
