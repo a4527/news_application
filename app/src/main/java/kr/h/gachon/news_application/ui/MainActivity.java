@@ -2,9 +2,15 @@ package kr.h.gachon.news_application.ui;
 
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
@@ -15,7 +21,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.List;
 import kr.h.gachon.news_application.R;
 import kr.h.gachon.news_application.network.model.News;
-import kr.h.gachon.news_application.ui.Trend.TrendFragment;
 import kr.h.gachon.news_application.viewmodel.NewsViewModel;
 import kr.h.gachon.news_application.viewmodel.SharedViewModel;
 
@@ -25,32 +30,65 @@ public class MainActivity extends AppCompatActivity {
     private SharedViewModel viewModel;
     private Animation loadingAnim;
     private FragmentManager fragmentManager = getSupportFragmentManager();
-    private Fragment_main fragment_main = new Fragment_main();
-    private Fragment_search fragment_search = new Fragment_search();
-    private TrendFragment fragment_trend = new TrendFragment();
-    private Fragment_profile fragment_profile = new Fragment_profile();
     private NavController navController;
     BottomNavigationView bottomNavigationView;
-    float touchPoint_x = 0;
-    float touchPoint_y = 0;
-    int count = 0;
+    View reload_icon;
+    private Fragment_scrap fragment_scrap=new Fragment_scrap();
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.top_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        reload_icon =findViewById(R.id.reload);
+        if (item.getItemId() == R.id.setting) {
+            // 환경설정으로 이동
+            return true;
+        }
+        if (item.getItemId() == R.id.reload) {
+            showLoading();
+            //vm.getHeadlines();
+            //hideLoading();
+            return true;
+        } if (item.getItemId() == R.drawable.left) {
+            return true;
+        }
+
+        return false;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.left);
+        toolbar.showOverflowMenu();
+
         loadingAnim = AnimationUtils.loadAnimation(this, R.anim.rotate);
 
         // frame_layout 세팅
-        adapter = new ArticleAdapter();
+        //adapter = new ArticleAdapter(new MyDiffUtil());
         FragmentTransaction transaction = fragmentManager.beginTransaction();
+
         //transaction.replace(R.id.nav_host_fragment, fragment_main).commitAllowingStateLoss();
 
         // ViewModel 초기화
-        vm = new ViewModelProvider(this).get(NewsViewModel.class);
+        //vm = new ViewModelProvider(this).get(NewsViewModel.class);
 
-        vm.loadHeadlines();
+        // vm.getHeadlines().observe(this, this::onNewsReceived);
+        // vm.getError().observe(this, err -> {
+        // hideLoading();
+        //binding.textBar.setText("Error: " + err);
+        //});
+        // vm.loadHeadlines();
 
         //bottom_navigation
         bottomNavigationView = findViewById(R.id.menu_bottom_navigation);
@@ -58,6 +96,10 @@ public class MainActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(SharedViewModel.class);
 
         setupJetpackNavigation();
+
+
+
+
     }
     public SharedViewModel getViewModel() {
         return viewModel;
@@ -70,39 +112,18 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(bottomNavigationView,navController);
     }
 
-    /*class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-
-            int itemId = menuItem.getItemId();
-            if (itemId == R.id.main) {
-                transaction.replace(R.id.frame_layout, fragment_main).commitAllowingStateLoss();
-            } else if (itemId == R.id.search) {
-                transaction.replace(R.id.frame_layout, fragment_search).commitAllowingStateLoss();
-            } else if (itemId == R.id.profile) {
-                transaction.replace(R.id.frame_layout, fragment_profile).commitAllowingStateLoss();
-            }
-
-            return true;
-        }
-    }*/
-
 
     private void onNewsReceived(List<News> newsList) {
-        hideLoading();
-        //ArticleAdapter adapter=new ArticleAdapter();
+        //hideLoading();
         adapter.submitList(newsList);
         //binding.textBar.setText("총 " + newsList.size() + "개의 기사를 가져왔습니다.");
     }
     private void showLoading() {
-        //binding.ivLoading.setVisibility(View.VISIBLE);
-        //binding.ivLoading.startAnimation(loadingAnim);
+        reload_icon.startAnimation(loadingAnim);
     }
 
     private void hideLoading() {
-        //binding.ivLoading.clearAnimation();
-        //binding.ivLoading.setVisibility(View.GONE);
+        //reload_icon.clearAnimation();
     }
 
 

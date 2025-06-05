@@ -6,32 +6,26 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
-
 import kr.h.gachon.news_application.R;
-import kr.h.gachon.news_application.network.model.News;
-import kr.h.gachon.news_application.viewmodel.NewsViewModel;
 
-public class Fragment3 extends Fragment {
 
+public class Fragment_scrap extends Fragment {
     private RecyclerView recyclerView;
     private ArticleAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    private NewsViewModel vm;
 
-    public Fragment3() {
+    public Fragment_scrap() {
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = (ViewGroup) inflater.inflate(R.layout.fragment_3, container, false);
 
+        View view = (ViewGroup) inflater.inflate(R.layout.fragment_scrap, container, false);
 
         recyclerView=(RecyclerView) view.findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
@@ -42,18 +36,6 @@ public class Fragment3 extends Fragment {
         adapter=new ArticleAdapter();
         recyclerView.setAdapter(adapter);
 
-        vm = new ViewModelProvider(this).get(NewsViewModel.class);
-        vm.getHeadlines().observe(getViewLifecycleOwner(), this::onNewsReceived);
-        vm.loadHeadlines();
-
-
-
-
-
         return view;
     }
-    private void onNewsReceived(List<News> newsList) {
-        adapter.submitList(newsList);
-    }
-
 }
