@@ -29,13 +29,14 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.VH> {
     private static List<News> items = new ArrayList<>();
     private List<String> arr = Arrays.asList("Recent","방송/통신","컴퓨팅","홈&모바일","인터넷","반도체\n/디스플레이","카테크","헬스케어");
     private static String string;
+    private String selectedCategory=null;
+    private List<News> filteredItems = new ArrayList<>();
 
     /** 외부에서 리스트 갱신할 때 호출 */
     public void submitList(List<News> list) {
         items.clear();
-        if (list != null) {
-            items.addAll(list);
-        }
+        if (list != null) items.addAll(list);
+        filterByCategory(selectedCategory); // 항상 필터 적용
         notifyDataSetChanged();
     }
 
@@ -45,6 +46,23 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.VH> {
             //items.
         } else {items.remove(position);}
     }
+    /** 카테고리 필터링 함수 */
+    public void filterByCategory(String category) {
+        selectedCategory = category;
+        if (category==null|| category.equals("Recent")) {
+            filteredItems = new ArrayList<>(items);
+        } else {
+            filteredItems = new ArrayList<>();
+            for (News n : items) {
+                if (n.getCategory() != null && n.getCategory().equals(category)) {
+                    filteredItems.add(n);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+
 
     @NonNull @Override
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -58,12 +76,12 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.VH> {
 
     @Override
     public void onBindViewHolder(@NonNull VH holder, int position) {
-        holder.bind(items.get(position));
+        holder.bind(filteredItems.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return filteredItems.size();
     }
 
     static class VH extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -106,8 +124,8 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.VH> {
             textView_category.setText(article.getCategory());
             textView_keyword.setText(article.getKeyword());
 
-            string=article.getCategory();
-            items.remove(getAdapterPosition());
+            //string=article.getCategory();
+            //items.remove(getAdapterPosition());
         }
 
         @Override
