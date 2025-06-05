@@ -27,7 +27,6 @@ import kr.h.gachon.news_application.viewmodel.SharedViewModel;
 public class MainActivity extends AppCompatActivity {
     private NewsViewModel vm;
     private ArticleAdapter adapter;
-    private SharedViewModel viewModel;
     private Animation loadingAnim;
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private NavController navController;
