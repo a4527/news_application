@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     private NavController navController;
     BottomNavigationView bottomNavigationView;
     View reload_icon;
-    private Fragment_scrap fragment_scrap=new Fragment_scrap();
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
