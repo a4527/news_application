@@ -14,6 +14,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Query;
 import retrofit2.http.POST;
 
@@ -71,4 +72,9 @@ public interface RetrofitRepository{
             @Query("keyword") String keyword,
             @Query("topK") int topK
     );
+
+        @GET("/api/keyword/popup")
+        Call<List<News>> getPopupNews(
+                //@Header("Authorization") String bearerToken
+        );
 }
