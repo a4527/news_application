@@ -64,7 +64,7 @@ public interface RetrofitRepository{
     @DELETE("/api/profile/keywordDelete")
     Call<Void> deleteKeyword(@Query("keyword") String keyword);
 
-    @GET("/api/scrap")
+    @GET("/api/scrap/print")
     Call<List<News>> getScraps();
 
     @POST("/api/scrap/{newsId}")
