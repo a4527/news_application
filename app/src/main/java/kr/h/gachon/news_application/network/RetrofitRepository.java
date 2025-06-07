@@ -82,13 +82,13 @@ public interface RetrofitRepository{
             @Query("topK") int topK
     );
 
-    @GET("api/keyword/trend_search")
+    @GET("/api/keyword/trend_search")
     Call<TrendSearchResult> getTrendSearch(
             @Query("start") String startDate,
             @Query("end") String endDate,
             @Query("topK") int topK
     );
 
-    @GET("api/keyword/popup")
+    @GET("/api/keyword/popup")
     Call<List<News>> getPopupNews();
 }

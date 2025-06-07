@@ -1,12 +1,12 @@
 package kr.h.gachon.news_application.ui.Trend;
 
-import kr.h.gachon.news_application.R;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,43 +14,63 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import kr.h.gachon.news_application.R;
+import kr.h.gachon.news_application.data.model.TrendSearchDTO;
+
 public class TrendNewsAdapter extends RecyclerView.Adapter<TrendNewsAdapter.ViewHolder> {
 
-    private List<TrendNews> newsList = new ArrayList<>();
-
-    public void submitList(List<TrendNews> list) {
-        newsList = list;
-        notifyDataSetChanged();
-    }
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView title;
-
-        public ViewHolder(View view) {
-            super(view);
-            title = view.findViewById(R.id.textNewsTitle);
-        }
-    }
+    private List<TrendSearchDTO> items = new ArrayList<>();
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_trend_news, parent, false);
-        return new ViewHolder(v);
+    public TrendNewsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_trend_news, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        TrendNews news = newsList.get(position);
-        holder.title.setText(news.getTitle());
-        holder.itemView.setOnClickListener(v ->{
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(news.getUrl()));
-            v.getContext().startActivity(browserIntent);
+    public void onBindViewHolder(@NonNull TrendNewsAdapter.ViewHolder holder, int position) {
+        final TrendSearchDTO item = items.get(position);
+        holder.tvTitle.setText(item.getTitle());
+        holder.tvScore.setText(String.format("유사도: %.3f", item.getScore()));
+
+        // 링크를 클릭하면 외부 브라우저에서 열도록 Intent 설정
+        holder.tvLink.setText(item.getLink());
+        holder.tvLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url = item.getLink();
+                if (url != null && !url.isEmpty()) {
+                    Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    view.getContext().startActivity(i);
+                } else {
+                    Toast.makeText(view.getContext(), "유효하지 않은 링크입니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
         });
     }
 
     @Override
     public int getItemCount() {
-        return newsList.size();
+        // items가 null이면 0, 아니면 크기 반환
+        return (items == null) ? 0 : items.size();
+    }
+
+    /** 외부에서 데이터 갱신 시 호출 **/
+    public void setData(List<TrendSearchDTO> list) {
+        this.items = list;
+        notifyDataSetChanged();
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView tvTitle, tvLink, tvScore;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            tvTitle = itemView.findViewById(R.id.tvItemTitle);
+            tvLink  = itemView.findViewById(R.id.tvItemLink);
+            tvScore = itemView.findViewById(R.id.tvItemScore);
+        }
     }
 }
