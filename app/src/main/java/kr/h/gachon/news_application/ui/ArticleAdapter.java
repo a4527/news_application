@@ -19,10 +19,16 @@ import java.util.List;
 import kr.h.gachon.news_application.R;
 import kr.h.gachon.news_application.databinding.ItemArticleBinding;
 import kr.h.gachon.news_application.network.model.News;
+import kr.h.gachon.news_application.viewmodel.ScrapViewModel;
 
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.VH> {
 
+    ScrapViewModel scrapViewModel;
     private List<News> items = new ArrayList<>();
+
+    public ArticleAdapter(ScrapViewModel scrapViewModel) {
+        this.scrapViewModel = scrapViewModel;
+    }
 
     /** 외부에서 리스트 갱신할 때 호출 */
     public void submitList(List<News> list) {
