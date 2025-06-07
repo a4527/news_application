@@ -35,7 +35,6 @@ public class Fragment5 extends Fragment {
                              Bundle savedInstanceState) {
         View view = (ViewGroup) inflater.inflate(R.layout.fragment_5, container, false);
 
-
         recyclerView=(RecyclerView) view.findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
 
@@ -49,15 +48,11 @@ public class Fragment5 extends Fragment {
         vm.getCategoryHeadlines().observe(getViewLifecycleOwner(), this::onCategoryNewsReceived);
         vm.loadCategoryHeadlines();
 
-
-
-
-
         return view;
     }
     private void onCategoryNewsReceived(Map<String, List<News>> newsMap) {
-        if (newsMap != null && newsMap.containsKey("게임")) {
-            List<News> list = newsMap.get("게임");
+        if (newsMap != null && newsMap.containsKey("반도체/디스플레이")) {
+            List<News> list = newsMap.get("반도체/디스플레이");
             adapter.submitList(list);
         }
     }

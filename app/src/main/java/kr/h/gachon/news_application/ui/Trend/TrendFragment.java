@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Locale;
 
 import kr.h.gachon.news_application.R;
+import kr.h.gachon.news_application.data.model.TrendSearchDTO;
 import kr.h.gachon.news_application.ui.ArticleAdapter;
 import kr.h.gachon.news_application.viewmodel.ScrapViewModel;
 import kr.h.gachon.news_application.viewmodel.TrendSearchViewModel;
@@ -39,7 +40,7 @@ public class TrendFragment extends Fragment {
     private ChipGroup chipGroupKeywords;
     private View startDateBox, endDateBox;
     private RecyclerView recyclerView;
-    private ArticleAdapter adapter;
+    private TrendNewsAdapter adapter;
     private Calendar startCalendar = Calendar.getInstance();
     private Calendar endCalendar = Calendar.getInstance();
     private TrendSearchViewModel vm;
@@ -75,7 +76,9 @@ public class TrendFragment extends Fragment {
         btnSearch = view.findViewById(R.id.btnSearch);
         recyclerView = view.findViewById(R.id.recyclerTrend);
         chipGroupKeywords = view.findViewById(R.id.chipGroupKeywords);
-        adapter=new ArticleAdapter(new ViewModelProvider(this).get(ScrapViewModel.class));
+
+        adapter = new TrendNewsAdapter();//수정본
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
@@ -85,6 +88,52 @@ public class TrendFragment extends Fragment {
         btnSearch.setOnClickListener(v -> fetchTrendNews());
 
         vm = new ViewModelProvider(this).get(TrendSearchViewModel.class);
+
+        vm.getFullResponse().observe(
+                getViewLifecycleOwner(),
+                response -> {
+
+                    if (response == null) {
+                        Toast.makeText(getContext(), "데이터 로드 실패", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    // 4-1) 뉴스 리스트 바인딩
+                    List<TrendSearchDTO> news = response.getNews();
+                    if (news != null && !news.isEmpty()) {
+                        adapter.setData(news);
+                    } else {
+                        Toast.makeText(getContext(), "조건에 맞는 뉴스가 없습니다.", Toast.LENGTH_SHORT).show();
+                    }
+
+                    // 4-2) 키워드 바인딩
+                    List<String> kws = response.getKeywords();
+                    chipGroupKeywords.removeAllViews();
+                    if (kws != null && !kws.isEmpty()) {
+                        chipGroupKeywords.setVisibility(View.VISIBLE);
+                        for (String kw : kws) {
+                            Chip chip = new Chip(requireContext());
+                            chip.setText("#" + kw);
+                            chip.setTextColor(Color.WHITE);
+                            chip.setChipBackgroundColorResource(R.color.chip_bg);
+                            chip.setClickable(false);
+                            chip.setCheckable(false);
+                            chipGroupKeywords.addView(chip);
+                        }
+                    } else {
+                        chipGroupKeywords.setVisibility(View.GONE);
+                    }
+                }
+        );
+
+        vm.getErrorMsg().observe(
+                getViewLifecycleOwner(),
+                err -> {
+                    if (err != null) {
+                        Toast.makeText(getContext(), err, Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
 
         textStartDate.setText("날짜를 설정해주세요");
         textStartDate.setTextColor(Color.GRAY);
