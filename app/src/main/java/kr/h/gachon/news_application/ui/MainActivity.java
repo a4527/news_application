@@ -1,6 +1,5 @@
 package kr.h.gachon.news_application.ui;
 
-
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,19 +9,14 @@ import android.view.animation.AnimationUtils;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import kr.h.gachon.news_application.R;
-import kr.h.gachon.news_application.viewmodel.NewsViewModel;
 
 public class MainActivity extends AppCompatActivity {
-    private NewsViewModel vm;
-    private ArticleAdapter adapter;
     private Animation loadingAnim;
-    private FragmentManager fragmentManager = getSupportFragmentManager();
     private NavController navController;
     BottomNavigationView bottomNavigationView;
     View reload_icon;
@@ -60,9 +54,15 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.left);
         toolbar.showOverflowMenu();
+        toolbar.setNavigationIcon(R.drawable.left);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.popBackStack();
+            }
+        });
 
         loadingAnim = AnimationUtils.loadAnimation(this, R.anim.rotate);
 
