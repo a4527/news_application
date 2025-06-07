@@ -1,5 +1,7 @@
 package kr.h.gachon.news_application.network;
 
+import android.util.Log;
+
 import java.io.IOException;
 
 import kr.h.gachon.news_application.util.TokenManager;
@@ -18,6 +20,7 @@ public class AuthInterceptor implements Interceptor {
         String token = tokenManager.getToken();
         if(token != null) {
             Request authRequest = original.newBuilder().addHeader("Authorization", "Bearer " + token).build();
+            Log.d("TrendFragment", token);
             return chain.proceed(authRequest);
         }
         return chain.proceed(original);

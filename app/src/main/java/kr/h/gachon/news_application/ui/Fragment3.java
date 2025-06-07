@@ -15,6 +15,7 @@ import java.util.List;
 import kr.h.gachon.news_application.R;
 import kr.h.gachon.news_application.network.model.News;
 import kr.h.gachon.news_application.viewmodel.NewsViewModel;
+import kr.h.gachon.news_application.viewmodel.ScrapViewModel;
 
 public class Fragment3 extends Fragment {
 
@@ -39,7 +40,7 @@ public class Fragment3 extends Fragment {
         layoutManager=new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter=new ArticleAdapter();
+        adapter=new ArticleAdapter(new ViewModelProvider(this).get(ScrapViewModel.class));
         recyclerView.setAdapter(adapter);
 
         vm = new ViewModelProvider(this).get(NewsViewModel.class);

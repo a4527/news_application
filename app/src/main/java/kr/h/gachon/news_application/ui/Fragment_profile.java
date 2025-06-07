@@ -19,6 +19,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import kr.h.gachon.news_application.R;
+import kr.h.gachon.news_application.ui.Keyword.KeywordManageFragment;
+import kr.h.gachon.news_application.ui.Setting.SettingsActivity;
+import kr.h.gachon.news_application.ui.Setting.SettingsFragment;
 
 public class Fragment_profile extends Fragment {
 
@@ -37,16 +40,12 @@ public class Fragment_profile extends Fragment {
         imageView.setClipToOutline(true);
 
         FrameLayout frameLayout=view.findViewById(R.id.frame_profile);
-        ImageButton imageButton_setting=view.findViewById(R.id.img_botton_setting);
         ImageButton log_out=view.findViewById(R.id.img_botton_logout);
         TextView log_out_text=view.findViewById(R.id.textview_logout);
 
         FragmentManager childFragment = getChildFragmentManager();
         FragmentTransaction transaction = childFragment.beginTransaction();
 
-        imageButton_setting.setOnClickListener(v -> {
-
-        });
 
         log_out.setOnClickListener(v -> {
             Log.d("tag",log_out_text.getText().toString());
@@ -60,6 +59,23 @@ public class Fragment_profile extends Fragment {
                 startActivity(intent);
             }
         });
+
+        ImageButton keywordButton = view.findViewById(R.id.img_botton1);
+        keywordButton.setOnClickListener(v -> {
+            requireActivity()
+                    .getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.nav_host_fragment, new KeywordManageFragment())
+                    .addToBackStack(null)
+                    .commit();
+        });
+
+        ImageButton settingButton = view.findViewById(R.id.img_botton_setting);
+        settingButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), SettingsActivity.class);
+            startActivity(intent);
+        });
+
 
         //transaction.replace(R.id.fragment_container_view, fragment0).commitAllowingStateLoss();
 

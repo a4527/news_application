@@ -57,18 +57,19 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Scrap Articles"
+                android:text="Keyword Management"
                 android:gravity="center_vertical"
                 android:layout_weight="1"
                 android:textSize="20sp"
                 android:textStyle="bold"/>
 
-            <ImageButton
-                android:id="@+id/img_botton1"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@color/white"
-                android:src="@drawable/right"/>
+                <ImageButton
+
+                    android:id="@+id/img_botton1"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@color/white"
+                    android:src="@drawable/right"/>
 
         </LinearLayout>
 

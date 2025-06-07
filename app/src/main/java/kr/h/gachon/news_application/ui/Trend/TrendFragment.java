@@ -6,9 +6,11 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +29,8 @@ import java.util.Locale;
 
 import kr.h.gachon.news_application.R;
 import kr.h.gachon.news_application.ui.ArticleAdapter;
+import kr.h.gachon.news_application.viewmodel.ScrapViewModel;
+import kr.h.gachon.news_application.viewmodel.TrendSearchViewModel;
 
 public class TrendFragment extends Fragment {
 
@@ -38,6 +42,7 @@ public class TrendFragment extends Fragment {
     private ArticleAdapter adapter;
     private Calendar startCalendar = Calendar.getInstance();
     private Calendar endCalendar = Calendar.getInstance();
+    private TrendSearchViewModel vm;
 
     public TrendFragment() {
         // Required empty public constructor
@@ -70,7 +75,7 @@ public class TrendFragment extends Fragment {
         btnSearch = view.findViewById(R.id.btnSearch);
         recyclerView = view.findViewById(R.id.recyclerTrend);
         chipGroupKeywords = view.findViewById(R.id.chipGroupKeywords);
-        adapter = new ArticleAdapter();
+        adapter=new ArticleAdapter(new ViewModelProvider(this).get(ScrapViewModel.class));
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
@@ -78,6 +83,8 @@ public class TrendFragment extends Fragment {
         endDateBox.setOnClickListener(v -> showDatePicker(false));
 
         btnSearch.setOnClickListener(v -> fetchTrendNews());
+
+        vm = new ViewModelProvider(this).get(TrendSearchViewModel.class);
 
         textStartDate.setText("날짜를 설정해주세요");
         textStartDate.setTextColor(Color.GRAY);
@@ -128,11 +135,21 @@ public class TrendFragment extends Fragment {
         // 여기서 네트워크 요청 또는 로컬 필터링 수행
         // viewModel.loadTrendNews(startDate, endDate);
 
+        Log.d("TrendFragment", startDate);
+        Log.d("TrendFragment", endDate);
+        vm.fetchTrendSearch(startDate, endDate, 10);
+
         chipGroupKeywords.removeAllViews(); // 이전 키워드 제거
         chipGroupKeywords.setVisibility(View.VISIBLE);
 
-        // 예시 키워드 리스트
-        List<String> keywords = Arrays.asList("AI", "경제", "기후변화");
+        if (vm.getFullResponse().getValue() == null || vm.getFullResponse().getValue().getKeywords() == null) {
+            //Log.d("TrendFragment", vm.getFullResponse().getValue())
+            Toast.makeText(getContext(), "트렌드 데이터를 불러오지 못했습니다.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        List<String> keywords = vm.getFullResponse().getValue().getKeywords();
+
 
         for (String kw : keywords) {
             Chip chip = new Chip(requireContext());

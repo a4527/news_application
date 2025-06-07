@@ -49,7 +49,11 @@ public class ScrapAdapter extends RecyclerView.Adapter<ScrapAdapter.ScrapViewHol
     public void onBindViewHolder(@NonNull ScrapViewHolder holder, int position){
         ScrapItem item = scrapList.get(position);
         holder.title.setText(item.getTitle());
-        holder.content.setText(item.getContent());
+        holder.content.setText(
+                item.getContent().length() > 50
+                        ? item.getContent().substring(0, 50) + "..."
+                        : item.getContent()
+        );
 
         if(item.getImageUrl() != null && !item.getImageUrl().isEmpty()) {
             Glide.with(holder.thumhnail.getContext())
@@ -65,7 +69,7 @@ public class ScrapAdapter extends RecyclerView.Adapter<ScrapAdapter.ScrapViewHol
 
             Bundle bundle = new Bundle();
             bundle.putInt("index", position);
-            //Navigation.findNavController(v).navigate(R.id.scrapDetailFragment, bundle);
+            Navigation.findNavController(v).navigate(R.id.scrapDetailFragment, bundle);
         });
     }
 
