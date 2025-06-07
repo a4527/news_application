@@ -5,7 +5,6 @@ import java.util.List;
 
 import kr.h.gachon.news_application.data.model.KeywordRequest;
 import kr.h.gachon.news_application.data.model.SearchResult;
-import kr.h.gachon.news_application.data.model.TrendSearchResult;
 import kr.h.gachon.news_application.network.model.LoginRequest;
 import kr.h.gachon.news_application.network.model.LoginResponse;
 import kr.h.gachon.news_application.network.model.News;
@@ -14,7 +13,6 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.POST;
 
@@ -60,15 +58,6 @@ public interface RetrofitRepository{
     @DELETE("/api/profile/keywordDelete")
     Call<Void> deleteKeyword(@Query("keyword") String keyword);
 
-    @GET("/api/scrap")
-    Call<List<News>> getScraps();
-
-    @POST("/api/scrap/{newsId}")
-    Call<Void> addScrap(@Path("newsId") Long newsId);
-
-    @DELETE("/api/scrap/{newsId}")
-    Call<Void> deleteScrap(@Path("newsId") Long newsId);
-
     /**===============프로필 관련 코드=============*/
 
     //키워드 검색 15개 반환해주고 여기서 Date 기준으로 정렬하면 과거순/최신순 정렬 가능
@@ -78,14 +67,4 @@ public interface RetrofitRepository{
             @Query("keyword") String keyword,
             @Query("topK") int topK
     );
-
-    @GET("api/keyword/trend_search")
-    Call<TrendSearchResult> getTrendSearch(
-            @Query("start") String startDate,
-            @Query("end") String endDate,
-            @Query("topK") int topK
-    );
-
-    @GET("api/keyword/popup")
-    Call<List<News>> getPopupNews();
 }

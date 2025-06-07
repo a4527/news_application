@@ -1,6 +1,5 @@
 package kr.h.gachon.news_application.ui;
 
-import android.app.Activity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,16 +19,10 @@ import java.util.List;
 import kr.h.gachon.news_application.R;
 import kr.h.gachon.news_application.databinding.ItemArticleBinding;
 import kr.h.gachon.news_application.network.model.News;
-import kr.h.gachon.news_application.viewmodel.ScrapViewModel;
 
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.VH> {
 
-    private final ScrapViewModel scrapViewModel;
     private List<News> items = new ArrayList<>();
-
-    public ArticleAdapter(ScrapViewModel scrapViewModel) {
-        this.scrapViewModel = scrapViewModel;
-    }
 
     /** 외부에서 리스트 갱신할 때 호출 */
     public void submitList(List<News> list) {
@@ -48,7 +41,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.VH> {
                 parent,
                 false
         );
-        return new VH(binding, scrapViewModel);
+        return new VH(binding);
     }
 
     @Override
@@ -68,13 +61,10 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.VH> {
         private TextView textView_url;
         private TextView textView_category;
         private TextView textView_keyword;
-        private ScrapViewModel vm;
-        private Long newsId;
 
-        VH(ItemArticleBinding binding, ScrapViewModel vm) {
+        VH(ItemArticleBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
-            this.vm = vm;
         }
 
         void bind(News article) {
@@ -86,11 +76,10 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.VH> {
             textView_url = binding.textviewUrl;
             textView_category = binding.textviewCategory;
             textView_keyword = binding.textviewKeyword;
+
             toggle_Button_scrap.setOnClickListener(this);
             toggle_Button_url.setOnClickListener(this);
             textView_url.setOnClickListener(this);
-
-            newsId = article.getId();
 
             Glide.with(binding.tvImage.getContext())
                     .load(article.getUrlimg())
@@ -109,17 +98,6 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.VH> {
                 Toast.makeText(view.getContext(),
                         toggle_Button_scrap.isChecked() ? "This article has been scraped" : "This article has not been scraped",
                         Toast.LENGTH_SHORT).show();
-                vm.addScrap(newsId, success -> {
-                    ((Activity)itemView.getContext()).runOnUiThread(() -> {
-                        if(!success) {
-                            vm.fetchScraps();
-                            Log.d("ArticleAdapter", "스크랩 추가 실패");
-                        } else {
-                            vm.fetchScraps();
-                            Log.d("ArticleAdapter", "스크랩 추가");
-                        }
-                    });
-                });
             }
 
             if (view.getId() == R.id.toggle_url) {

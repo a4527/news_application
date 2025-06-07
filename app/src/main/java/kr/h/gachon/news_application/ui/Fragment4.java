@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.h.gachon.news_application.R;
 import kr.h.gachon.news_application.network.model.News;
@@ -45,8 +46,8 @@ public class Fragment4 extends Fragment {
         recyclerView.setAdapter(adapter);
 
         vm = new ViewModelProvider(this).get(NewsViewModel.class);
-        vm.getHeadlines().observe(getViewLifecycleOwner(), this::onNewsReceived);
-        vm.loadHeadlines();
+        vm.getCategoryHeadlines().observe(getViewLifecycleOwner(), this::onCategoryNewsReceived);
+        vm.loadCategoryHeadlines();
 
 
 
@@ -54,8 +55,11 @@ public class Fragment4 extends Fragment {
 
         return view;
     }
-    private void onNewsReceived(List<News> newsList) {
-        adapter.submitList(newsList);
+    private void onCategoryNewsReceived(Map<String, List<News>> newsMap) {
+        if (newsMap != null && newsMap.containsKey("반도체/디스플레이")) {
+            List<News> list = newsMap.get("반도체/디스플레이");
+            adapter.submitList(list);
+        }
     }
 
 }

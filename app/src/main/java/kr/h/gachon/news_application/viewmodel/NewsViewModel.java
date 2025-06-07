@@ -7,12 +7,14 @@ import androidx.lifecycle.LiveData;
 import kr.h.gachon.news_application.network.model.News;
 import kr.h.gachon.news_application.repository.NewsRepository;
 import java.util.List;
+import java.util.Map;
 
 public class NewsViewModel extends AndroidViewModel {
 
     private final NewsRepository repo;
     private final LiveData<List<News>> headlines;
     private final LiveData<String>    error;
+    private final LiveData<Map<String, List<News>>> categoryHeadlines;
 
     public NewsViewModel(@NonNull Application app) {
         super(app);
@@ -20,6 +22,7 @@ public class NewsViewModel extends AndroidViewModel {
         repo = new NewsRepository(app);
         headlines = repo.getHeadlines();
         error     = repo.getError();
+        categoryHeadlines = repo.getCategoryHeadlines();
     }
 
     public LiveData<List<News>> getHeadlines() {
@@ -32,5 +35,12 @@ public class NewsViewModel extends AndroidViewModel {
 
     public void loadHeadlines() {
         repo.fetchHeadlines();
+    }
+
+    public LiveData<Map<String, List<News>>> getCategoryHeadlines() {
+        return repo.getCategoryHeadlines();
+    }
+    public void loadCategoryHeadlines() {
+        repo.fetchCategoryHeadlines();
     }
 }
