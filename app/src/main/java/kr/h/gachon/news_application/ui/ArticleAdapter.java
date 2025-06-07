@@ -1,5 +1,6 @@
 package kr.h.gachon.news_application.ui;
 
+import android.app.Activity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,7 +48,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.VH> {
                 parent,
                 false
         );
-        return new VH(binding);
+        return new VH(binding, scrapViewModel);
     }
 
     @Override
@@ -67,10 +68,13 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.VH> {
         private TextView textView_url;
         private TextView textView_category;
         private TextView textView_keyword;
+        private ScrapViewModel vm;
+        private Long newsId;
 
-        VH(ItemArticleBinding binding) {
+        VH(ItemArticleBinding binding, ScrapViewModel vm) {
             super(binding.getRoot());
             this.binding = binding;
+            this.vm = vm;
         }
 
         void bind(News article) {
@@ -86,6 +90,8 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.VH> {
             toggle_Button_scrap.setOnClickListener(this);
             toggle_Button_url.setOnClickListener(this);
             textView_url.setOnClickListener(this);
+
+            newsId = article.getId();
 
             Glide.with(binding.tvImage.getContext())
                     .load(article.getUrlimg())
@@ -104,6 +110,29 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.VH> {
                 Toast.makeText(view.getContext(),
                         toggle_Button_scrap.isChecked() ? "This article has been scraped" : "This article has not been scraped",
                         Toast.LENGTH_SHORT).show();
+                if(toggle_Button_scrap.isChecked())
+                {
+                    vm.addScrap(newsId, success -> {
+                        ((Activity)itemView.getContext()).runOnUiThread(() -> {
+                            if(!success) {
+                                Log.d("ArticleAdapter", "스크랩 추가 실패");
+                            } else {
+                                vm.fetchScraps();
+                            }
+                        });
+                    });
+                }
+                else {
+                    vm.deleteScrap(newsId, success -> {
+                        ((Activity)itemView.getContext()).runOnUiThread(() -> {
+                            if(!success) {
+                                Log.d("ArticleAdapter", "스크랩 추가 실패");
+                            } else {
+                                vm.fetchScraps();
+                            }
+                        });
+                    });
+                }
             }
 
             if (view.getId() == R.id.toggle_url) {

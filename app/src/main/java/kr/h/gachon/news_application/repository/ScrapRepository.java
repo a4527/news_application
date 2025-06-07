@@ -53,10 +53,12 @@ public class ScrapRepository {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.isSuccessful()) {
                     listner.onComplete(true);
+                    Log.d("ScrapRepository", "스크랩 성공");
                 } else {
                     error.postValue("스크랩 추가 실패 : HTTP " + response.code());
                     Log.d("ArticleAdapter", String.valueOf(response.code()));
                     listner.onComplete(false);
+                    Log.d("ScrapRepository", "스크랩 실패");
                 }
             }
 

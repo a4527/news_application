@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,7 @@ public class ScrapFragment extends Fragment {
                 scrapList.add(newItem);
             }
             adapter.notifyDataSetChanged();
+            Log.d("ScrapFragment", "스크랩 리스트 변경");
         });
 
         vm.fetchScraps();
