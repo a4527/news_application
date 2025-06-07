@@ -35,7 +35,6 @@ public class Fragment7 extends Fragment {
                              Bundle savedInstanceState) {
         View view = (ViewGroup) inflater.inflate(R.layout.fragment_7, container, false);
 
-
         recyclerView=(RecyclerView) view.findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
 
@@ -48,9 +47,6 @@ public class Fragment7 extends Fragment {
         vm = new ViewModelProvider(this).get(NewsViewModel.class);
         vm.getCategoryHeadlines().observe(getViewLifecycleOwner(), this::onCategoryNewsReceived);
         vm.loadCategoryHeadlines();
-
-
-
 
         return view;
     }

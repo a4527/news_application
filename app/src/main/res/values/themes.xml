@@ -1,7 +1,7 @@
 <!-- themes.xml (Light) -->
 <resources xmlns:tools="http://schemas.android.com/tools">
     <style name="Theme.News_Application" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">#A9A9A9</item>
+        <item name="colorPrimary">#00BFFF</item>
         <item name="colorPrimaryVariant">#DCDCDC</item>
         <item name="colorOnPrimary">@color/black</item>
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>

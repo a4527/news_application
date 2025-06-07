@@ -48,7 +48,6 @@ public class Fragment_profile extends Fragment {
 
 
         log_out.setOnClickListener(v -> {
-            Log.d("tag",log_out_text.getText().toString());
             if (log_out_text.getText().toString().equals("Log Out")) {
                 log_out_text.setText("Log In");
                 Toast myToast = Toast.makeText(this.getActivity(),"Log Out", Toast.LENGTH_SHORT);
@@ -75,9 +74,6 @@ public class Fragment_profile extends Fragment {
             Intent intent = new Intent(getActivity(), SettingsActivity.class);
             startActivity(intent);
         });
-
-
-        //transaction.replace(R.id.fragment_container_view, fragment0).commitAllowingStateLoss();
 
         return view;
     }

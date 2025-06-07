@@ -35,7 +35,6 @@ public class Fragment1 extends Fragment {
                              Bundle savedInstanceState) {
         View view = (ViewGroup) inflater.inflate(R.layout.fragment_1, container, false);
 
-
         recyclerView=(RecyclerView) view.findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
 
@@ -46,33 +45,14 @@ public class Fragment1 extends Fragment {
         recyclerView.setAdapter(adapter);
 
         vm = new ViewModelProvider(this).get(NewsViewModel.class);
-        //vm.getHeadlines().observe(getViewLifecycleOwner(), this::onNewsReceived);
-        //vm.loadHeadlines();
         vm.getCategoryHeadlines().observe(getViewLifecycleOwner(), this::onCategoryNewsReceived);
         vm.loadCategoryHeadlines();
-
-
-
-
-        /*if (textView.getText().toString()==null) {
-            textView.setVisibility(View.INVISIBLE);
-        }
-
-        else if (textView.getText().toString()!="방송/통신") {
-            textView.setVisibility(View.GONE);
-        }*/
 
         return view;
     }
     private void onCategoryNewsReceived(Map<String, List<News>> newsMap) {
-        for (String key : newsMap.keySet()) {
-            System.out.println("카테고리 키: " + key + " / 뉴스 개수: " + newsMap.get(key).size());
-        }
-        if (newsMap != null && newsMap.containsKey("컴퓨팅")) {
-            List<News> list = newsMap.get("컴퓨팅");
-            for (News news : list) {
-                System.out.println("뉴스 제목: " + news.getTitle() + " / 카테고리: " + news.getCategory());
-            }
+        if (newsMap != null && newsMap.containsKey("방송/통신")) {
+            List<News> list = newsMap.get("방송/통신");
             adapter.submitList(list);
         }
     }

@@ -17,7 +17,6 @@ import kr.h.gachon.news_application.R;
 import kr.h.gachon.news_application.network.model.News;
 import kr.h.gachon.news_application.viewmodel.NewsViewModel;
 import kr.h.gachon.news_application.viewmodel.ScrapViewModel;
-import kr.h.gachon.news_application.viewmodel.SharedViewModel;
 
 
 public class Fragment2 extends Fragment {
@@ -36,7 +35,6 @@ public class Fragment2 extends Fragment {
                              Bundle savedInstanceState) {
         View view = (ViewGroup) inflater.inflate(R.layout.fragment_2, container, false);
 
-
         recyclerView=(RecyclerView) view.findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
 
@@ -50,13 +48,11 @@ public class Fragment2 extends Fragment {
         vm.getCategoryHeadlines().observe(getViewLifecycleOwner(), this::onCategoryNewsReceived);
         vm.loadCategoryHeadlines();
 
-
-
         return view;
     }
     private void onCategoryNewsReceived(Map<String, List<News>> newsMap) {
-        if (newsMap != null && newsMap.containsKey("홈&모바일")) {
-            List<News> list = newsMap.get("홈&모바일");
+        if (newsMap != null && newsMap.containsKey("컴퓨팅")) {
+            List<News> list = newsMap.get("컴퓨팅");
             adapter.submitList(list);
         }
     }

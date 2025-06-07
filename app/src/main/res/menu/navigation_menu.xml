@@ -6,6 +6,7 @@
         android:title="Main Page" />
     <item
         android:id="@+id/fragment_scrap"
+        android:icon="@drawable/scrap"
         android:title="Scrap" />
     <item
         android:id="@+id/trend"
