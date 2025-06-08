@@ -5,6 +5,10 @@
         android:icon="@drawable/news"
         android:title="Main Page" />
     <item
+        android:id="@+id/fragment_search"
+        android:icon="@drawable/search"
+        android:title="Search" />
+    <item
         android:id="@+id/fragment_scrap"
         android:icon="@drawable/scrap"
         android:title="Scrap" />

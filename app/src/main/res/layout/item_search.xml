@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/itemRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:background="?android:attr/selectableItemBackground">
+
+    <!-- 뉴스 제목 -->
+    <TextView
+        android:id="@+id/tvItemTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="기사 제목"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:maxLines="2"
+        android:ellipsize="end"/>
+
+    <!-- 링크 (클릭 시 웹 브라우저 또는 CustomTabs로 열도록 할 수 있음) -->
+    <TextView
+        android:id="@+id/tvItemLink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="https://example.com"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="14sp"
+        android:layout_marginTop="4dp"
+        android:maxLines="1"
+        android:ellipsize="end"/>
+
+    <!-- 유사도 Score -->
+    <TextView
+        android:id="@+id/tvItemScore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="유사도: 0.805"
+        android:textSize="14sp"
+        android:layout_marginTop="4dp"/>
+    <TextView
+        android:id="@+id/tvItemDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="yyyy-mm-dd"
+        android:textSize="14sp"
+        android:layout_marginTop="4dp"/>
+</LinearLayout>

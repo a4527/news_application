@@ -29,6 +29,7 @@
             android:layout_marginBottom="10dp">
 
             <TextView
+                android:id="@+id/textview_name"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:text="Name"
@@ -104,7 +105,7 @@
                 android:id="@+id/textview_logout"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="Log Out"
+                android:text="Log In"
                 android:gravity="center_vertical"
                 android:paddingStart="10dp"
                 android:textSize="20sp"

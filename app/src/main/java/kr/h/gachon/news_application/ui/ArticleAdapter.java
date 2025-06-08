@@ -80,8 +80,6 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.VH> {
         private ToggleButton toggle_Button_scrap;
         private ToggleButton toggle_Button_url;
         private TextView textView_url;
-        private TextView textView_category;
-        private TextView textView_keyword;
         private ScrapViewModel vm;
         private Long newsId;
 

@@ -100,6 +100,7 @@ public class TrendFragment extends Fragment {
 
                     // 4-1) 뉴스 리스트 바인딩
                     List<TrendSearchDTO> news = response.getNews();
+                    Log.d("tag", "trend"+news.toString());
                     if (news != null && !news.isEmpty()) {
                         adapter.setData(news);
                     } else {

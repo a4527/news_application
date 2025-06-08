@@ -1,0 +1,64 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/edit_category"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="40dp"
+            android:hint="카테고리 입력"/>
+        <EditText
+            android:id="@+id/edit_keyword"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="40dp"
+            android:layout_marginLeft="180dp"
+            android:hint="키워드 입력"/>
+
+        <ImageButton
+            android:id="@+id/img_search"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="right"
+            android:background="@drawable/search"
+            app:backgroundTint="@null" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:text="총 0개"
+            android:textSize="18sp"
+            android:layout_marginRight="30dp"
+            android:visibility="invisible"/>
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"/>
+
+    </LinearLayout>
+
+
+    <!-- 📰 뉴스 리스트 -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="8dp"/>
+</LinearLayout>

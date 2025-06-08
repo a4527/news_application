@@ -16,35 +16,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import kr.h.gachon.news_application.R;
 
 public class MainActivity extends AppCompatActivity {
-    private Animation loadingAnim;
     private NavController navController;
     BottomNavigationView bottomNavigationView;
-    View reload_icon;
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.top_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        reload_icon =findViewById(R.id.reload);
-        if (item.getItemId() == R.id.setting) {
-            // 환경설정으로 이동
-            return true;
-        }
-        if (item.getItemId() == R.id.reload) {
-           //showLoading();
-            //vm.getHeadlines();
-            //hideLoading();
-            return true;
-        } if (item.getItemId() == R.drawable.left) {
-            return true;
-        }
-
-        return false;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        loadingAnim = AnimationUtils.loadAnimation(this, R.anim.rotate);
-
         bottomNavigationView = findViewById(R.id.menu_bottom_navigation);
 
         setupJetpackNavigation();
@@ -76,13 +47,6 @@ public class MainActivity extends AppCompatActivity {
                 .findFragmentById(R.id.nav_host_fragment);
         navController = host.getNavController();
         NavigationUI.setupWithNavController(bottomNavigationView,navController);
-    }
-    private void showLoading() {
-        reload_icon.startAnimation(loadingAnim);
-    }
-
-    private void hideLoading() {
-        //reload_icon.clearAnimation();
     }
 
 }

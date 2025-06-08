@@ -9,8 +9,13 @@
         android:name="kr.h.gachon.news_application.ui.Fragment_main"
         android:label="Main Page"
         tools:layout="@layout/fragment_main">
+    </fragment>
 
-
+    <fragment
+        android:id="@+id/fragment_search"
+        android:name="kr.h.gachon.news_application.ui.Search.Fragment_search"
+        android:label="Scrap"
+        tools:layout="@layout/fragment_search">
     </fragment>
 
     <fragment
@@ -18,8 +23,6 @@
         android:name="kr.h.gachon.news_application.ui.Scrap.ScrapFragment"
         android:label="Scrap"
         tools:layout="@layout/fragment_scrap">
-
-
     </fragment>
 
     <fragment
@@ -27,8 +30,6 @@
         android:name="kr.h.gachon.news_application.ui.Trend.TrendFragment"
         android:label="Trend"
         tools:layout="@layout/fragment_trend">
-
-
     </fragment>
 
     <fragment
