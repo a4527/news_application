@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
+import java.util.Objects;
 
 import kr.h.gachon.news_application.network.model.News;
 import kr.h.gachon.news_application.repository.ScrapRepository;
@@ -56,6 +57,19 @@ public class ScrapViewModel extends AndroidViewModel {
         });
     }
 
+    public boolean isScrapped(Long newsId) {
+        List<News> scrapedList = scrapList.getValue();
+
+        if(scrapedList == null) {return false;}
+
+        Log.d("Scrap", String.valueOf(scrapedList.size()));
+        for (News news: scrapedList) {
+            if(Objects.equals(news.getId(), newsId)) {
+                return true;
+            }
+        }
+        return false;
+    }
     public interface OnRequestCompleteListener {
         void onComplete(boolean success);
     }

@@ -54,8 +54,8 @@ public class ScrapDetailPagerAdapter extends RecyclerView.Adapter<ScrapDetailPag
         }
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(holder.itemView.getContext());
-        int titleSize = Integer.parseInt(prefs.getString("title_font_size", "18"));
-        int contentSize = Integer.parseInt(prefs.getString("content_font_size", "14"));
+        int titleSize = prefs.getInt("title_font_size", 24);
+        int contentSize = prefs.getInt("content_font_size", 24);
 
         holder.title.setTextSize(TypedValue.COMPLEX_UNIT_SP, titleSize);
         holder.summary.setTextSize(TypedValue.COMPLEX_UNIT_SP, contentSize);
