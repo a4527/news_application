@@ -1,26 +1,16 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- UI 설정 -->
-    <PreferenceCategory android:title="읽기 환경" />
     <SwitchPreferenceCompat
         android:key="dark_mode"
         android:title="다크 모드"
         android:summary="앱 전체에 다크 테마 적용" />
 
-    <ListPreference
+    <kr.h.gachon.news_application.ui.Setting.SeekBarPreference
         android:key="title_font_size"
-        android:title="제목 글자 크기"
-        android:summary="기사 제목의 글자 크기 설정"
-        android:defaultValue="18"
-        android:entries="@array/title_font_size_labels"
-        android:entryValues="@array/title_font_size_values" />
+        android:title="제목 글자 크기" />
 
-    <ListPreference
+    <kr.h.gachon.news_application.ui.Setting.SeekBarPreference
         android:key="content_font_size"
-        android:title="본문 글자 크기"
-        android:summary="기사 본문의 글자 크기 설정"
-        android:defaultValue="14"
-        android:entries="@array/content_font_size_labels"
-        android:entryValues="@array/content_font_size_values" />
+        android:title="본문 글자 크기" />
 
 </PreferenceScreen>

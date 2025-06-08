@@ -34,8 +34,8 @@ public class FontSizeManager {
     }
 
     private FontSize getFontSize(SharedPreferences prefs) {
-        int titleSize = Integer.parseInt(prefs.getString("title_font_size", "18"));
-        int contentSize = Integer.parseInt(prefs.getString("content_font_size", "14"));
+        int titleSize = prefs.getInt("title_font_size", 24);
+        int contentSize = prefs.getInt("content_font_size", 16);
         return new FontSize(titleSize, contentSize);
     }
 

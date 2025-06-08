@@ -3,6 +3,7 @@ package kr.h.gachon.news_application.ui;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,8 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
+import androidx.preference.ListPreference;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -94,6 +97,13 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.VH> {
             binding.tvTitle.setText(article.getTitle());
             binding.tvDesc.setText(article.getSummary());
 
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            int titleSize = prefs.getInt("title_font_size", 24);
+            int contentSize = prefs.getInt("content_font_size", 24);
+
+            binding.tvTitle.setTextSize(titleSize);
+            binding.tvDesc.setTextSize(contentSize);
+
             toggle_Button_scrap = binding.toggleScrap;
             toggle_Button_url = binding.toggleUrl;
             textView_url = binding.textviewUrl;
@@ -103,6 +113,9 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.VH> {
             textView_url.setOnClickListener(this);
 
             newsId = article.getId();
+
+            toggle_Button_scrap.setChecked((vm.isScrapped(newsId)));
+            Log.d("Scrap", "바인딩 후 토글 변경");
 
             Glide.with(binding.tvImage.getContext())
                     .load(article.getUrlimg())
@@ -117,7 +130,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.VH> {
         public void onClick(View view) {
             if (view.getId() == R.id.toggle_scrap) {
                 Toast.makeText(view.getContext(),
-                        toggle_Button_scrap.isChecked() ? "This article has been scraped" : "This article has not been scraped",
+                        toggle_Button_scrap.isChecked() ? "This article has been scraped" : "Removed from the scraped article",
                         Toast.LENGTH_SHORT).show();
                 if(toggle_Button_scrap.isChecked())
                 {

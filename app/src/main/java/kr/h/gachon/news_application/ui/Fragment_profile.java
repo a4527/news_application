@@ -3,12 +3,12 @@ package kr.h.gachon.news_application.ui;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +24,6 @@ import kr.h.gachon.news_application.data.LoginRepository;
 import kr.h.gachon.news_application.data.model.LoggedInUser;
 import kr.h.gachon.news_application.network.model.LoginRequest;
 import kr.h.gachon.news_application.ui.Keyword.KeywordManageFragment;
-import kr.h.gachon.news_application.ui.Setting.SettingsActivity;
 import kr.h.gachon.news_application.ui.Setting.SettingsFragment;
 import kr.h.gachon.news_application.util.TokenManager;
 
@@ -94,8 +93,8 @@ public class Fragment_profile extends Fragment {
 
         ImageButton settingButton = view.findViewById(R.id.img_botton_setting);
         settingButton.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), SettingsActivity.class);
-            startActivity(intent);
+            NavController navController = NavHostFragment.findNavController(this);
+            navController.navigate(R.id.settings);
         });
 
         return view;

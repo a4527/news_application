@@ -53,6 +53,7 @@ public class ScrapRepository {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.isSuccessful()) {
                     listner.onComplete(true);
+                    fetchScraps();
                     Log.d("ScrapRepository", "스크랩 성공");
                 } else {
                     error.postValue("스크랩 추가 실패 : HTTP " + response.code());
@@ -76,6 +77,7 @@ public class ScrapRepository {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.isSuccessful()) {
                     listener.onComplete(true);
+                    fetchScraps();
                 } else {
                     error.postValue("스크랩 취소 실패 : HTTP " + response.code());
                     listener.onComplete(false);
