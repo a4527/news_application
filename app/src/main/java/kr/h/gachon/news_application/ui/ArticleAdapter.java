@@ -96,11 +96,18 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.VH> {
         void bind(News article) {
             binding.tvTitle.setText(article.getTitle());
             binding.tvDesc.setText(article.getSummary());
-
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-            int titleSize = prefs.getInt("title_font_size", 24);
-            int contentSize = prefs.getInt("content_font_size", 24);
+            String titleSizeStr = prefs.getString("title_font_size", "24");
+            String contentSizeStr = prefs.getString("content_font_size", "24");
 
+            int titleSize, contentSize;
+            try {
+                titleSize   = Integer.parseInt(titleSizeStr);
+                contentSize = Integer.parseInt(contentSizeStr);
+            } catch (NumberFormatException e) {
+                titleSize   = 24;
+                contentSize = 24;
+            }
             binding.tvTitle.setTextSize(titleSize);
             binding.tvDesc.setTextSize(contentSize);
 
